@@ -1,0 +1,1 @@
+INSTR(DEY,imp,2,0x88,1)

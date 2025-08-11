@@ -1,0 +1,7 @@
+INSTR(STA,abs,4,0x8d,3)
+INSTR(STA,abs_x,5,0x9d,3)
+INSTR(STA,abs_y,5,0x99,3)
+INSTR(STA,zpg,3,0x85,2)
+INSTR(STA,zpg_x,4,0x95,2)
+INSTR(STA,x_ind,6,0x81,2)
+INSTR(STA,ind_y,6,0x91,2)

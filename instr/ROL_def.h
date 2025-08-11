@@ -1,0 +1,5 @@
+INSTR(ROL,acc,2,0x2a,1)
+INSTR(ROL,abs,6,0x2e,3)
+INSTR(ROL,abs_x,7,0x3e,3)
+INSTR(ROL,zpg,5,0x26,2)
+INSTR(ROL,zpg_x,6,0x36,2)

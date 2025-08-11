@@ -1,0 +1,2 @@
+INSTR(BIT,abs,4,0x2c,3)
+INSTR(BIT,zpg,3,0x24,2)

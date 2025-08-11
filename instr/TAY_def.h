@@ -1,0 +1,1 @@
+INSTR(TAY,imp,2,0xA8,1)

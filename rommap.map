@@ -1,0 +1,10 @@
+# Must be in ascending address order
+../synmon1/basic1.rom 0xA000 0x800
+../synmon1/basic2.rom 0xA800 0x800
+../synmon1/basic3.rom 0xB000 0x800
+../synmon1/basic4.rom 0xB800 0x800
+../synmon1/OSI540-KEYB-FD00.ROM 0xfd00 0x100
+../synmon1/OSI540-65V-FE00.ROM 0xfe00 0x100
+../synmon1/OSI540-CWM-FF00.ROM 0xFF00 0x100
+
+

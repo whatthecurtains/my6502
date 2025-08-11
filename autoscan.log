@@ -1,0 +1,3 @@
+autoscan: warning: missing AC_TYPE_INT8_T wanted by: 
+	include/address_mode.h:52
+	include/address_mode.h:55

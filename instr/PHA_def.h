@@ -1,0 +1,1 @@
+INSTR(PHA,imp,3,0x48,1)

@@ -1,0 +1,5 @@
+INSTR(LDY,imm,2,0xa0,2)
+INSTR(LDY,abs,6,0xac,3)
+INSTR(LDY,abs_x,4 + (addr>>8!=high) ? 1 : 0,0xbc,3)
+INSTR(LDY,zpg,3,0xa4,2)
+INSTR(LDY,zpg_x,4,0xb4,2)

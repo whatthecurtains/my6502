@@ -1,0 +1,139 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include "regs.h"
+#include "bus.h"
+#include "hw_model.h"
+
+static uint8_t* memspace=NULL;
+static all_regs_t* R=NULL;
+static image_t memimage=INVALID;
+#define watch_addr(x)  (  \
+    ( (x&~0x1f)==0x0200 ) || \
+    ( (x&~0x1f)==0xFFE0 ) )
+
+
+void    memwr( uint16_t addr, uint8_t data ) {
+    if (watch_addr(addr)) {
+        printf("writing temporary storage: $%4.4X <= %2.2X\n",addr,data);
+    }
+    memspace[addr] = data;
+    if ( ishw(addr) ) {
+       hw_write(addr,data);
+    }
+    else {
+        //printf("Non hw write\n");
+    }
+}
+
+uint8_t memrd( uint16_t addr ) {
+    uint8_t res;
+    if ( ishw(addr) ) {
+        res = hw_read(addr);
+    }
+    else {
+        res = memspace[addr];
+    }
+    if (watch_addr(addr)) {
+        printf("reading temporary storage: $%4.4X => %2.2X\n",addr,res);
+    }
+    return res;
+}
+
+void snapshot( const char* name, all_regs_t* state ) {
+
+}
+
+static map_t* image_map=NULL;
+
+uint16_t load_image( const char* name, image_t type ) {
+    memimage=type;
+    uint32_t size=0;
+    size_t s;
+    if (type==BIN) {
+        int fd = open(name,O_DSYNC | O_RDWR);
+        memspace = mmap(NULL,sizeof(all_regs_t)+0x10000, PROT_READ | PROT_WRITE, MAP_SHARED,fd,0);
+        size=0x10000;
+    }
+    else if (type==MONITOR) {
+        FILE* mon=fopen("./sysrom.rom","rb");
+        memspace = malloc(sizeof(all_regs_t)+0x10000);
+        s=fread(&memspace[0xfd00],0x300,1,mon);
+        size=0x800;
+    }
+    else if (type==MAP){
+        memspace = malloc(sizeof(all_regs_t)+0x10000);
+        // Read the file into the memory space
+        FILE* mapfile=fopen(name,"r");
+        char binary[256];
+        uint32_t org,size,count,segment;
+        segment=0;
+        while (!feof(mapfile)) {
+            count=fscanf(mapfile,"%s %x %x", binary,&org,&size);
+            if (count==3) {
+                FILE* m=fopen(binary,"rb");
+                s=fread(&memspace[org],size,1,m);
+                fclose(m);
+                image_map = realloc(image_map,sizeof(map_t)+segment*sizeof(map_entry_t));
+                image_map->map[segment].begin = org;
+                image_map->map[segment].end   = org + size-1;
+                segment += 1;
+                image_map->count = segment;
+            }
+        }
+        fclose(mapfile);
+    }
+    R=(all_regs_t*)(&memspace[0x10000]);
+    // call HW init.
+    hw_init( memspace );
+    return size;
+}
+
+void close_image( int persist ) {
+    hw_halt(memspace);
+    if (memimage!=INVALID && memimage!=BIN) {
+        if (!persist) {
+            free(memspace);
+        }
+    }
+}
+
+map_t* get_image_map(void) {
+    return image_map;
+}
+
+BOOL in_map(all_regs_t* R) {
+    int prev_seg=-1;
+    int seg;
+    if (image_map==NULL) return FALSE;
+    for (seg=0; seg<image_map->count; seg++) {
+        if (R->PC>=image_map->map[seg].begin && R->PC<=image_map->map[seg].end) return TRUE;
+        if (R->PC>=image_map->map[seg].begin) prev_seg = seg;
+    }
+    if (prev_seg<seg-1) {
+        R->PC = image_map->map[prev_seg+1].begin;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+all_regs_t* get_regs(void) {
+    return R;
+}
+
+uint8_t* get_memspace(void) {
+    return memspace;
+}
+
+int getIRQstate() {
+    return 0;
+}
+
+
+int getNMIstate() {
+    return 0;
+}

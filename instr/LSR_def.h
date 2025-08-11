@@ -1,0 +1,5 @@
+INSTR(LSR,acc,2,0x4a,1)
+INSTR(LSR,abs,6,0x4e,3)
+INSTR(LSR,abs_x,7,0x5e,3)
+INSTR(LSR,zpg,5,0x46,2)
+INSTR(LSR,zpg_x,6,0x56,2)

@@ -1,0 +1,1 @@
+INSTR(CLI,imp,2,0x58,1)

@@ -1,0 +1,8 @@
+INSTR(CMP,imm,2,0xc9,2)
+INSTR(CMP,abs,4,0xcd,3)
+INSTR(CMP,abs_x,( 4 + (low+reg->X>0xFF) ? 1 : 0),0xdd,3)
+INSTR(CMP,abs_y,( 4 + (low+reg->Y>0xFF) ? 1 : 0),0xd9,3)
+INSTR(CMP,zpg,3,0xc5,2)
+INSTR(CMP,zpg_x,4,0xd5,2)
+INSTR(CMP,x_ind,6,0xc1,2)
+INSTR(CMP,ind_y,(5+(addr>>8!=(addr+reg->Y)>>8) ? 1 : 0),0xd1,2)

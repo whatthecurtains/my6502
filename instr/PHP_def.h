@@ -1,0 +1,1 @@
+INSTR(PHP,imp,3,0x08,1)

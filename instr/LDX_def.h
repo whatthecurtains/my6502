@@ -1,0 +1,5 @@
+INSTR(LDX,imm,2,0xa2,2)
+INSTR(LDX,abs,6,0xae,3)
+INSTR(LDX,abs_y,4 + (addr>>8!=high) ? 1 : 0,0xbe,3)
+INSTR(LDX,zpg,3,0xa6,2)
+INSTR(LDX,zpg_y,4,0xb6,2)

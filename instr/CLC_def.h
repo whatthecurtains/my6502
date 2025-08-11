@@ -1,0 +1,1 @@
+INSTR(CLC,imp,2,0x18,1)

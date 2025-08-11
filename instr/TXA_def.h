@@ -1,0 +1,1 @@
+INSTR(TXA,imp,2,0x8A,1)

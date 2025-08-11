@@ -1,0 +1,8 @@
+INSTR(ADC,imm,2,0x69,2)
+INSTR(ADC,abs,4,0x6d,3)
+INSTR(ADC,abs_x,( 4 + (low+reg->X>0xFF) ? 1 : 0),0x7d,3)
+INSTR(ADC,abs_y,( 4 + (low+reg->Y>0xFF) ? 1 : 0),0x79,3)
+INSTR(ADC,zpg,3,0x65,2)
+INSTR(ADC,zpg_x,4,0x75,2)
+INSTR(ADC,x_ind,6,0x61,2)
+INSTR(ADC,ind_y,(5+(addr>>8!=(addr+reg->Y)>>8) ? 1 : 0),0x71,2)

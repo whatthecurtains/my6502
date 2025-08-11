@@ -1,0 +1,8 @@
+INSTR(ORA,imm,2,0x09,2)
+INSTR(ORA,abs,4,0x0d,3)
+INSTR(ORA,abs_x,( 4 + (low+reg->X>0xFF) ? 1 : 0),0x1d,3)
+INSTR(ORA,abs_y,( 4 + (low+reg->Y>0xFF) ? 1 : 0),0x19,3)
+INSTR(ORA,zpg,3,0x05,2)
+INSTR(ORA,zpg_x,4,0x15,2)
+INSTR(ORA,x_ind,6,0x01,2)
+INSTR(ORA,ind_y,(5+(addr>>8!=(addr+reg->Y)>>8) ? 1 : 0),0x11,2)

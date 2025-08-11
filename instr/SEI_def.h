@@ -1,0 +1,1 @@
+INSTR(SEI,imp,2,0x78,1)

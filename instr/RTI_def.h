@@ -1,0 +1,1 @@
+INSTR(RTI,imp,6,0x40,1)

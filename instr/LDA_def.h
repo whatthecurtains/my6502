@@ -1,0 +1,8 @@
+INSTR(LDA,imm,2,0xa9,2)
+INSTR(LDA,abs,4,0xad,3)
+INSTR(LDA,abs_x,( 4 + (low+reg->X>0xFF) ? 1 : 0),0xbd,3)
+INSTR(LDA,abs_y,( 4 + (low+reg->Y>0xFF) ? 1 : 0),0xb9,3)
+INSTR(LDA,zpg,3,0xa5,2)
+INSTR(LDA,zpg_x,4,0xb5,2)
+INSTR(LDA,x_ind,6,0xa1,2)
+INSTR(LDA,ind_y,(5+(addr>>8!=(addr+reg->Y)>>8) ? 1 : 0),0xb1,2)

@@ -1,0 +1,8 @@
+INSTR(EOR,imm,2,0x49,2)
+INSTR(EOR,abs,4,0x4d,3)
+INSTR(EOR,abs_x,( 4 + ((uint16_t)low+reg->X>0xFF) ? 1 : 0),0x5d,3)
+INSTR(EOR,abs_y,( 4 + ((uint16_t)low+reg->Y>0xFF) ? 1 : 0),0x59,3)
+INSTR(EOR,zpg,3,0x45,2)
+INSTR(EOR,zpg_x,4,0x55,2)
+INSTR(EOR,x_ind,6,0x41,2)
+INSTR(EOR,ind_y,(5+(addr>>8!=(addr+reg->Y)>>8) ? 1 : 0),0x51,2)

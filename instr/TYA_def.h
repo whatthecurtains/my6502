@@ -1,0 +1,1 @@
+INSTR(TYA,imp,2,0x98,1)

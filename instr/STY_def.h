@@ -1,0 +1,3 @@
+INSTR(STY,abs,4,0x8c,3)
+INSTR(STY,zpg,3,0x84,2)
+INSTR(STY,zpg_x,4,0x94,2)
