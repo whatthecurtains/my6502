@@ -49,7 +49,7 @@ This is a very early work in progress. The basic design is does the following:
         * the map file contains a number of lines in increasing address order with the following fields:
             * binary_image_file_name start_address size
 - hw_c2-4p.c
-    *defines the interface functions that emulate the OSI hardware. These interface functions are based on the prototypes in include/hw_model.h
+    * defines the interface functions that emulate the OSI hardware. These interface functions are based on the prototypes in include/hw_model.h
         * B540_init function, if the environment is properly configured, creates a shared memory file containing the entire 2K of video memory, and  a simple mailbox to communicate changes to the video application.
 
 
