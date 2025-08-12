@@ -19,21 +19,25 @@ This can be built as follows:
 This should compile the video executable.
 
 Next do the following:
+    
     cd build
     ../configure
     make c2_4p
 
 You will need to export the following environment variable as follows:
+    
     export OSI_DISPLAY=gtk
 
 This will tell the simulator to launch the video executable for video output (and in the future keyboard input)
 
 If you want to just debug the simulator without launching the video app, you can set:
+    
     export OSI_DISPLAY=NONE
 
 This causes the executable to skip the video output.
 
 With the environment properly set, you run the executable as follows:
+    
     ./c2_4p -f ../rommap.map -m simulate -t map
 
 # Developer information #
