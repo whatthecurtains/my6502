@@ -8,6 +8,9 @@
 #include "shmem.h"
 #include "hw_c2-4p.h"
 
+implement_fifo(v540_update)
+
+
 int shm=-1;
 struct video540_t* ptr=NULL;
 
@@ -53,26 +56,27 @@ void* shm_cmd_loop(void* nothing) {
     int done = 0;
     if (ptr) {
         while (!done) {
-            switch (ptr->cmd) {
-            case VMEM_ALL:
-                paint_all();
-                final = 0;
-                while(!final);
-                ptr->cmd = VMEM_IDLE;
-                break;
-            case VMEM_BYTE:
-                paint_char();
-                final = 0;
-                while(!final);
-                ptr->cmd = VMEM_IDLE;
-                break;
-            case VMEM_CLOSE:
-                done = 1;
-                break;
-            default:
-                usleep(1);
-                break;
+            while (!v540_update_empty(&ptr->vm_write)) {
+                v540_update* item = v540_update_head(&ptr->vm_write);
+                switch (item->cmd) {
+                case VMEM_ALL:
+                    paint_all();
+                    final = 0;
+                    while(!final);
+                    v540_update_pop(&ptr->vm_write);
+                    break;
+                case VMEM_BYTE:
+                    paint_char();
+                    final = 0;
+                    while(!final);
+                    v540_update_pop(&ptr->vm_write);
+                    break;
+                case VMEM_CLOSE:
+                    done = 1;
+                    break;
+                }
             }
+            usleep(1);
         }
     }
     shm_disconnect();

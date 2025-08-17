@@ -14,6 +14,8 @@ char chrfile[256][20];
 GtkWidget* grid=NULL;
 struct video540_t* mbx=NULL;
 
+implement_fifo(v540_update)
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -186,9 +188,16 @@ static void on_paint_char( GtkWidget* one, gpointer data ) {
     //printf("on_paint_char called\n");
     if (ready) {
         //printf("ready!\n");
-        int row=(mbx->addr)>>6;
-        int col=(mbx->addr)&0x3f;
-        int addr=(mbx->addr)&0x7FF;
+        int row;
+        int col;
+        int addr;
+        v540_update* ptr=v540_update_head(&mbx->vm_write);
+        if (!ptr) return;
+
+        row=(ptr->addr)>>6;
+        col=(ptr->addr)&0x3f;
+        addr=(ptr->addr)&0x7FF;
+        v540_update_pop(&mbx->vm_write);
         char* pfile=chrfile[video_mem[addr]];
         GtkWidget* existing_chr = gtk_grid_get_child_at(GTK_GRID(grid), col, row);
 
