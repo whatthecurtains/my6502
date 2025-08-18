@@ -82,3 +82,54 @@ void* shm_cmd_loop(void* nothing) {
     shm_disconnect();
     return NULL;
 }
+
+
+static int                  _shm=-1;
+static struct video540_t*   _vmem=NULL;
+static uint8_t*             gimage=NULL;
+
+
+struct video540_t* shm_create_mbx(int size,uint8_t* vmem_ptr) {
+    size_t mbx_size=sizeof(struct video540_t)+size*sizeof(v540_update);
+    _shm=shm_open("OSI540-share",O_CREAT|O_RDWR,S_IRUSR | S_IWUSR);
+    if (_shm!=-1) {
+        err=ftruncate(_shm,mbx_size);
+        _vmem = (struct v540_t*)mmap(NULL,mbx_size,PROT_READ | PROT_WRITE,MAP_SHARED,_shm,0);
+    }
+    else {
+        printf("Error %s\n",strerror(errno));
+        return;
+    }
+    if (!_vmem) {
+        printf("Error %s\n",strerror(errno));
+        return;
+    }
+    v540_update_fifo_init_at(&_vmem->vm_write,size);
+    if (vmem_ptr!=NULL) {
+        memcpy(_vmem->vm,vmem_ptr,sizeof(_vmem->vm);
+    }
+    if ( (e=getenv("OSI_DISPLAY")) && (strncmp(e,"NONE",4)!=0)) {
+        vproc = fork();
+        switch(vproc) {
+        case 0:         // Child
+            err=execv("./video", (char*[]){"video",NULL});
+            if (err) {
+                printf("Error: %s\n",strerror(errno));
+                exit(-1);
+            }
+            break;
+        case -1:        // failed
+            printf("Failed to create video hw process");
+            exit(-1);
+            break;
+        default:
+            printf("Video HW process id: %d\n",vproc);
+            break;
+        }
+    }
+    else {
+        printf("Skipping video\n");
+    }
+    return _vmem;
+}
+

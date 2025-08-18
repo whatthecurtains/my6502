@@ -8,5 +8,5 @@ int shm_disconnect(void);
 void* shm_cmd_loop(void*);
 struct video540_t* shm_get_mbx(void);
 void shm_update_finalize(void);
-
+struct video540_t* shm_create_mbx(int size,uint8_t* vmem_ptr) ;
 #endif
