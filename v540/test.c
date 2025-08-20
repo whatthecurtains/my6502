@@ -30,6 +30,7 @@ v540_update item;
     while (v540_update_full(&ptr->vm_write)) {\
         usleep(1);                            \
     }                                         \
+    printf("CMD: %d, ADDR: %d\n", item.cmd, item.addr);    \
     v540_update_push(&ptr->vm_write,&item);   \
 }
 
