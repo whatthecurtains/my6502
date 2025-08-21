@@ -185,7 +185,7 @@ void    B540_write(uint16_t addr, uint8_t data) {
         while (v540_update_full(&_vmem->vm_write)) {
             usleep(1);
         }
-        gimage[addr] = data;
+        _vmem->vm[(addr&0x7FF)] = data;
         item.addr = addr;
         item.cmd = VMEM_BYTE;
         v540_update_push(&_vmem->vm_write,&item);

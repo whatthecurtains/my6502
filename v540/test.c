@@ -120,5 +120,6 @@ int main( void ) {
         }
         printf("Unrecognized command: %s\n",line);
     }
+    shm_disconnect();
 
 }

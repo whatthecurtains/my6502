@@ -179,6 +179,8 @@ static void on_paint_all( GtkWidget* one, gpointer data ) {
             //gtk_widget_queue_draw(chr);
         }
     }
+    v540_update_pop(&mbx->vm_write);
+
     //gtk_widget_queue_draw_area(main_win, 0, 0, 320, 200);
     gtk_widget_queue_draw(grid);
     shm_update_finalize();
@@ -191,14 +193,15 @@ static void on_paint_char( GtkWidget* one, gpointer data ) {
         int row;
         int col;
         int addr;
-        v540_update* ptr=v540_update_head(&mbx->vm_write);
+        v540_update* ptr=v540_update_tail(&mbx->vm_write);
         if (!ptr) return;
 
-        row=(ptr->addr)>>6;
-        col=(ptr->addr)&0x3f;
         addr=(ptr->addr)&0x7FF;
+        row=(addr)>>6;
+        col=(addr)&0x3f;
         v540_update_pop(&mbx->vm_write);
         char* pfile=chrfile[video_mem[addr]];
+        printf("Addr %4.4X: %2.2X row=%d col=%d\n",addr,(int)video_mem[addr],row,col);
         GtkWidget* existing_chr = gtk_grid_get_child_at(GTK_GRID(grid), col, row);
 
         if (existing_chr) {
@@ -277,8 +280,10 @@ int main (int argc, char **argv) {
     int status;
     pthread_t thread_id;
     printf("Starting v540 hardware\n");
+    fflush(stdout);
 
     printf("Generating character file names\n");
+    fflush(stdout);
     for (int i=0; i<256;i++){
         sprintf(chrfile[i],"ch_%2.2X.png",i);
     }
@@ -288,9 +293,10 @@ int main (int argc, char **argv) {
         exit(-1);
     }
     mbx = shm_get_mbx();
-    video_mem=(uint8_t*)mbx;
+    video_mem=mbx->vm;
 
     printf("Initializing Video Memory\n");
+    fflush(stdout);
     //for (int i=0;i<sizeof(video_mem); i++) {
     //    video_mem[i]=i&0xFF;
     //}

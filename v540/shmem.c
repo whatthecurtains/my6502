@@ -58,26 +58,24 @@ void* shm_cmd_loop(void* nothing) {
         while (!done) {
             while (!v540_update_empty(&ptr->vm_write)) {
                 v540_update* item = v540_update_tail(&ptr->vm_write);
-                printf("Received a command: ");
+                //printf("Received a command: ");
+                //printf(" CMD %d : Addr %4.4X\n", item->cmd, item->addr);
                 switch (item->cmd) {
                 case VMEM_ALL:
                     paint_all();
                     final = 0;
                     while(!final);
-                    //v540_update_pop(&ptr->vm_write);
                     break;
                 case VMEM_BYTE:
                     paint_char();
                     final = 0;
                     while(!final);
-                    //v540_update_pop(&ptr->vm_write);
                     break;
                 case VMEM_CLOSE:
                     done = 1;
                     break;
                 default:
-                    printf("  ** Not Recognized **\n");
-                    printf(" CMD %d : Addr %4.4X\n", item->cmd, item->addr);
+                    //printf("  ** Not Recognized **\n");
                     v540_update_pop(&ptr->vm_write);
                 }
             }
