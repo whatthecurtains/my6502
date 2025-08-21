@@ -201,7 +201,7 @@ static void on_paint_char( GtkWidget* one, gpointer data ) {
         col=(addr)&0x3f;
         v540_update_pop(&mbx->vm_write);
         char* pfile=chrfile[video_mem[addr]];
-        printf("Addr %4.4X: %2.2X row=%d col=%d\n",addr,(int)video_mem[addr],row,col);
+        //printf("Addr %4.4X: %2.2X row=%d col=%d\n",addr,(int)video_mem[addr],row,col);
         GtkWidget* existing_chr = gtk_grid_get_child_at(GTK_GRID(grid), col, row);
 
         if (existing_chr) {

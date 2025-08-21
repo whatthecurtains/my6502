@@ -79,7 +79,7 @@ void* shm_cmd_loop(void* nothing) {
                     v540_update_pop(&ptr->vm_write);
                 }
             }
-            usleep(1);
+            //sleep(1);
         }
     }
     shm_disconnect();
@@ -97,6 +97,8 @@ struct video540_t* shm_create_mbx(int size,uint8_t* vmem_ptr) {
     char* e=NULL;
     pid_t vproc;
     size_t mbx_size=sizeof(struct video540_t)+size*sizeof(v540_update);
+    printf("FIFO size is %d elements, mbx size is %ld\n",size,mbx_size);
+    fflush(stdout);
     _shm=shm_open("OSI540-share",O_CREAT|O_RDWR,S_IRUSR | S_IWUSR);
     if (_shm!=-1) {
         err=ftruncate(_shm,mbx_size);

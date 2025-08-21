@@ -145,7 +145,7 @@ void    B540_init (uint8_t* image) {
         printf("Error: %s\n",strerror(errno));
         return;
     }
-    v540_update_fifo_init_at(&_vmem->vm_write,256);
+    v540_update_fifo_init_at(&_vmem->vm_write,128);
     memcpy(_vmem->vm,&image[B540_BASE],B540_SIZE);
     // use fifo here
     //_vmem->addr = 0;
@@ -182,8 +182,10 @@ void    B540_write(uint16_t addr, uint8_t data) {
     char * e;
     v540_update item;
     if ( (e=getenv("OSI_DISPLAY")) && (strncmp(e,"NONE",4)!=0)) {
+        int count = 0;
         while (v540_update_full(&_vmem->vm_write)) {
-            usleep(1);
+            printf("Fifo full %d\n",count++);
+            sleep(1);
         }
         _vmem->vm[(addr&0x7FF)] = data;
         item.addr = addr;
