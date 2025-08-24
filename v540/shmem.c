@@ -54,22 +54,25 @@ void shm_update_finalize( void ) {
 
 void* shm_cmd_loop(void* nothing) {
     int done = 0;
+    uint64_t count;
     if (ptr) {
         while (!done) {
             while (!v540_update_empty(&ptr->vm_write)) {
-                v540_update* item = v540_update_tail(&ptr->vm_write);
+                volatile v540_update* item = v540_update_tail(&ptr->vm_write);
                 //printf("Received a command: ");
                 //printf(" CMD %d : Addr %4.4X\n", item->cmd, item->addr);
                 switch (item->cmd) {
                 case VMEM_ALL:
                     paint_all();
                     final = 0;
-                    while(!final);
+                    count=0;
+                    while(!final && count++ <(1<<10));
                     break;
                 case VMEM_BYTE:
                     paint_char();
                     final = 0;
-                    while(!final);
+                    count=0;
+                    while(!final && count++ <(1<<10));
                     break;
                 case VMEM_CLOSE:
                     done = 1;
@@ -96,9 +99,7 @@ struct video540_t* shm_create_mbx(int size,uint8_t* vmem_ptr) {
     int err;
     char* e=NULL;
     pid_t vproc;
-    size_t mbx_size=sizeof(struct video540_t)+size*sizeof(v540_update);
-    printf("FIFO size is %d elements, mbx size is %ld\n",size,mbx_size);
-    fflush(stdout);
+    size_t mbx_size=sizeof(struct video540_t)+(size)*sizeof(v540_update);
     _shm=shm_open("OSI540-share",O_CREAT|O_RDWR,S_IRUSR | S_IWUSR);
     if (_shm!=-1) {
         err=ftruncate(_shm,mbx_size);

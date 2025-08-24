@@ -8,6 +8,7 @@ video_SOURCES=   \
 main.c          \
 shmem.c         \
 shmem.h         \
+fifo.h          \
 hw_c24p.h
 
 test_CFLAGS=-I../../include
@@ -15,6 +16,7 @@ test_SOURCES=   \
 test.c          \
 shmem.c         \
 shmem.h         \
+fifo.h          \
 hw_c24p.h
 
 thimble_CFLAGS=$(shell pkg-config --cflags gtk+-3.0)

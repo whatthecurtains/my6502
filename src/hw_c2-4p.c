@@ -130,11 +130,19 @@ void    B540_init (uint8_t* image) {
     char* e;
     pid_t vproc;
     gimage = image;
+    size_t size=2048;
+    size_t mbx_size=sizeof(struct video540_t)+(size)*sizeof(v540_update);
+    printf("sizeof(video540_t): %ld\nsizeof(fifo_v540_update_t): %ld\nsizeof(v540_update): %ld\nsize: %ld\nmbx_size: %ld\n",
+        sizeof(struct video540_t),sizeof(fifo_v540_update_t), sizeof(v540_update),size,mbx_size);
+    printf("FIFO size is %ld elements, mbx size is %ld\n",size,mbx_size);
+    fflush(stdout);
+
+
     _shm=shm_open("OSI540-share",O_CREAT|O_RDWR,S_IRUSR | S_IWUSR);
     //_shm=open("./OSI540-share",O_CREAT|O_RDWR|O_DSYNC|O_TRUNC,0666);
     if (_shm!=-1) {
-        err=ftruncate(_shm,sizeof(struct video540_t));
-        _vmem = (struct video540_t*)mmap(NULL,sizeof(struct video540_t)+256*sizeof(v540_update),PROT_READ | PROT_WRITE,MAP_SHARED,_shm,0);
+        err=ftruncate(_shm,mbx_size);
+        _vmem = (struct video540_t*)mmap(NULL,mbx_size,PROT_READ | PROT_WRITE,MAP_SHARED,_shm,0);
         //v540_update_fifo_init_at(&_vmem->vm_write,256);
     }
     else {
@@ -145,7 +153,7 @@ void    B540_init (uint8_t* image) {
         printf("Error: %s\n",strerror(errno));
         return;
     }
-    v540_update_fifo_init_at(&_vmem->vm_write,128);
+    v540_update_fifo_init_at(&_vmem->vm_write,size);
     memcpy(_vmem->vm,&image[B540_BASE],B540_SIZE);
     // use fifo here
     //_vmem->addr = 0;
@@ -168,6 +176,7 @@ void    B540_init (uint8_t* image) {
             exit(-1);
             break;
         default:
+            sleep(2);
             printf("Video HW process id: %d\n",vproc);
             break;
         }
@@ -182,10 +191,11 @@ void    B540_write(uint16_t addr, uint8_t data) {
     char * e;
     v540_update item;
     if ( (e=getenv("OSI_DISPLAY")) && (strncmp(e,"NONE",4)!=0)) {
-        int count = 0;
+        uint64_t count = 0;
         while (v540_update_full(&_vmem->vm_write)) {
-            printf("Fifo full %d\n",count++);
-            sleep(1);
+            count++;
+            if ( (count & 0xffff)==0 ) printf("Fifo full %ld\n",count++);
+            usleep(1);
         }
         _vmem->vm[(addr&0x7FF)] = data;
         item.addr = addr;
