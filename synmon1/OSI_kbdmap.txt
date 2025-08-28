@@ -1,0 +1,67 @@
+
+												   key          row    col
+Key pressed: keyval=49, hardware_keycode=10         1           7       7
+Key pressed: keyval=50, hardware_keycode=11         2           7       6
+Key pressed: keyval=51, hardware_keycode=12         3           7       5
+Key pressed: keyval=52, hardware_keycode=13         4           7       4
+Key pressed: keyval=53, hardware_keycode=14         5           7       3
+Key pressed: keyval=54, hardware_keycode=15         6           7       2
+Key pressed: keyval=55, hardware_keycode=16         7           7       1
+
+Key pressed: keyval=56, hardware_keycode=17         8           6       7
+Key pressed: keyval=57, hardware_keycode=18         9           6       6
+Key pressed: keyval=48, hardware_keycode=19         0           6       5
+Key pressed: keyval=65505, hardware_keycode=50      rshf \      6       4
+Key pressed: keyval=58, hardware_keycode=47         ;    /  :   6       4
+Key pressed: keyval=45, hardware_keycode=20         -           6       3
+Key pressed: keyval=65288, hardware_keycode=22      Del         6       2
+
+Key pressed: keyval=46, hardware_keycode=60         .           5       7
+Key pressed: keyval=108, hardware_keycode=46        l           5       6
+Key pressed: keyval=111, hardware_keycode=32        o           5       5
+Key pressed: keyval=65364, hardware_keycode=116     lf          5       4
+Key pressed: keyval=65293, hardware_keycode=36      cr          5       3
+
+
+Key pressed: keyval=119, hardware_keycode=25        w           4       7
+Key pressed: keyval=101, hardware_keycode=26        e           4       6
+Key pressed: keyval=114, hardware_keycode=27        r           4       5
+Key pressed: keyval=116, hardware_keycode=28        t           4       4
+Key pressed: keyval=121, hardware_keycode=29        y           4       3
+Key pressed: keyval=117, hardware_keycode=30        u           4       2
+Key pressed: keyval=105, hardware_keycode=31        i           4       1
+
+
+Key pressed: keyval=115, hardware_keycode=39        s           3       7
+Key pressed: keyval=100, hardware_keycode=40        d           3       6
+Key pressed: keyval=102, hardware_keycode=41        f           3       5
+Key pressed: keyval=103, hardware_keycode=42        g           3       4
+Key pressed: keyval=104, hardware_keycode=43        h           3       3
+Key pressed: keyval=106, hardware_keycode=44        j           3       2
+Key pressed: keyval=107, hardware_keycode=45        k           3       1
+
+
+Key pressed: keyval=120, hardware_keycode=53        x           2       7
+Key pressed: keyval=99, hardware_keycode=54         c           2       6
+Key pressed: keyval=118, hardware_keycode=55        v           2       5
+Key pressed: keyval=98, hardware_keycode=56         b           2       4
+Key pressed: keyval=110, hardware_keycode=57        n           2       3
+Key pressed: keyval=109, hardware_keycode=58        m           2       2
+Key pressed: keyval=44, hardware_keycode=59         ,           2       1
+
+
+Key pressed: keyval=113, hardware_keycode=24        q           1       7
+Key pressed: keyval=97, hardware_keycode=38         a           1       6
+Key pressed: keyval=122, hardware_keycode=52        z           1       5
+Key pressed: keyval=32, hardware_keycode=65         sp          1       4
+Key pressed: keyval=47, hardware_keycode=61         /           1       3
+Key pressed: keyval=59, hardware_keycode=47         ;           1       2
+Key pressed: keyval=112, hardware_keycode=33        p           1       1
+
+
+Key pressed: keyval=65513, hardware_keycode=64      rept        0       7
+Key pressed: keyval=65507, hardware_keycode=37      ctrl        0       6
+Key pressed: keyval=65307, hardware_keycode=9       esc         0       5
+Key pressed: keyval=65505, hardware_keycode=50      lshf        0       2
+Key pressed: keyval=65506, hardware_keycode=62      rshf        0       1
+Key pressed: keyval=65509, hardware_keycode=66      lock        0       0
