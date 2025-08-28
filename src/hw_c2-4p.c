@@ -130,7 +130,7 @@ void    B540_init (uint8_t* image) {
     char* e;
     pid_t vproc;
     gimage = image;
-    size_t size=2048;
+    size_t size=64;
     size_t mbx_size=sizeof(struct video540_t)+(size)*sizeof(v540_update);
     printf("sizeof(video540_t): %ld\nsizeof(fifo_v540_update_t): %ld\nsizeof(v540_update): %ld\nsize: %ld\nmbx_size: %ld\n",
         sizeof(struct video540_t),sizeof(fifo_v540_update_t), sizeof(v540_update),size,mbx_size);
@@ -170,6 +170,7 @@ void    B540_init (uint8_t* image) {
                 printf("Error: %s\n",strerror(errno));
                 exit(-1);
             }
+            sleep(2);
             break;
         case -1:        // failed
             printf("Failed to create video hw process");
