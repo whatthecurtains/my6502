@@ -102,7 +102,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_test_OBJECTS = test-test.$(OBJEXT)
+am_test_OBJECTS = test-test.$(OBJEXT) test-shmem.$(OBJEXT)
 test_OBJECTS = $(am_test_OBJECTS)
 test_LDADD = $(LDADD)
 test_LINK = $(CCLD) $(test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
@@ -132,9 +132,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/test-test.Po \
-	./$(DEPDIR)/thimble-tmain.Po ./$(DEPDIR)/video-main.Po \
-	./$(DEPDIR)/video-shmem.Po
+am__depfiles_remade = ./$(DEPDIR)/test-shmem.Po \
+	./$(DEPDIR)/test-test.Po ./$(DEPDIR)/thimble-tmain.Po \
+	./$(DEPDIR)/video-main.Po ./$(DEPDIR)/video-shmem.Po
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -293,12 +293,16 @@ video_SOURCES = \
 main.c          \
 shmem.c         \
 shmem.h         \
+fifo.h          \
 hw_c24p.h
 
 test_CFLAGS = -I../../include
 test_SOURCES = \
 test.c          \
-hw_c24p.h 
+shmem.c         \
+shmem.h         \
+fifo.h          \
+hw_c24p.h
 
 thimble_CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 thimble_LDFLAGS = -Wl,--no-as-needed $(shell pkg-config --libs gtk+-3.0)
@@ -417,6 +421,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-shmem.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-test.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thimble-tmain.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video-main.Po@am__quote@ # am--include-marker
@@ -455,6 +460,20 @@ test-test.obj: test.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test.c' object='test-test.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CFLAGS) $(CFLAGS) -c -o test-test.obj `if test -f 'test.c'; then $(CYGPATH_W) 'test.c'; else $(CYGPATH_W) '$(srcdir)/test.c'; fi`
+
+test-shmem.o: shmem.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CFLAGS) $(CFLAGS) -MT test-shmem.o -MD -MP -MF $(DEPDIR)/test-shmem.Tpo -c -o test-shmem.o `test -f 'shmem.c' || echo '$(srcdir)/'`shmem.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-shmem.Tpo $(DEPDIR)/test-shmem.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shmem.c' object='test-shmem.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CFLAGS) $(CFLAGS) -c -o test-shmem.o `test -f 'shmem.c' || echo '$(srcdir)/'`shmem.c
+
+test-shmem.obj: shmem.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CFLAGS) $(CFLAGS) -MT test-shmem.obj -MD -MP -MF $(DEPDIR)/test-shmem.Tpo -c -o test-shmem.obj `if test -f 'shmem.c'; then $(CYGPATH_W) 'shmem.c'; else $(CYGPATH_W) '$(srcdir)/shmem.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-shmem.Tpo $(DEPDIR)/test-shmem.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shmem.c' object='test-shmem.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CFLAGS) $(CFLAGS) -c -o test-shmem.obj `if test -f 'shmem.c'; then $(CYGPATH_W) 'shmem.c'; else $(CYGPATH_W) '$(srcdir)/shmem.c'; fi`
 
 thimble-tmain.o: tmain.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(thimble_CFLAGS) $(CFLAGS) -MT thimble-tmain.o -MD -MP -MF $(DEPDIR)/thimble-tmain.Tpo -c -o thimble-tmain.o `test -f 'tmain.c' || echo '$(srcdir)/'`tmain.c
@@ -771,7 +790,8 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f ./$(DEPDIR)/test-test.Po
+		-rm -f ./$(DEPDIR)/test-shmem.Po
+	-rm -f ./$(DEPDIR)/test-test.Po
 	-rm -f ./$(DEPDIR)/thimble-tmain.Po
 	-rm -f ./$(DEPDIR)/video-main.Po
 	-rm -f ./$(DEPDIR)/video-shmem.Po
@@ -822,7 +842,8 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f ./$(DEPDIR)/test-test.Po
+		-rm -f ./$(DEPDIR)/test-shmem.Po
+	-rm -f ./$(DEPDIR)/test-test.Po
 	-rm -f ./$(DEPDIR)/thimble-tmain.Po
 	-rm -f ./$(DEPDIR)/video-main.Po
 	-rm -f ./$(DEPDIR)/video-shmem.Po

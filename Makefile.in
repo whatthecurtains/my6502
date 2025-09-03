@@ -297,8 +297,9 @@ am__define_uniq_tagged_files = \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
 AM_RECURSIVE_TARGETS = cscope
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
-	config.guess config.sub depcomp install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
+	README.md compile config.guess config.sub depcomp install-sh \
+	missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -415,6 +416,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 c2_4p_CFLAGS = -I${top_srcdir}/include -I${top_srcdir}/instr -I${top_srcdir}/v540 -DDEBUG_LOG
+AM_CFLAGS = -Wall --std=c11
 c2_4p_SOURCES = \
 ${top_srcdir}/src/main.c				\
 ${top_srcdir}/include/bus.h				\
@@ -428,6 +430,7 @@ ${top_srcdir}/include/address_mode.h	\
 ${top_srcdir}/include/debug_output.h	\
 ${top_srcdir}/src/debug_output.c		\
 ${top_srcdir}/src/shmem.c				\
+${top_srcdir}/include/fifo.h			\
 ${top_srcdir}/include/shmem.h			\
 ${top_srcdir}/instr/ADC.c				\
 ${top_srcdir}/instr/ADC_def.h			\
@@ -2331,6 +2334,9 @@ uninstall-am: uninstall-binPROGRAMS
 
 .PRECIOUS: Makefile
 
+
+%.E:${top_srcdir}/src/%.c
+	$(COMPILE) -c $(CFLAGS) $(c2_4p_CFLAGS) -DDEBUG_LOG -E -o $@  $<
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

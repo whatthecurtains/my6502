@@ -7,18 +7,34 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "hw_c2-4p.h"
+#include "shmem.h"
 
-#define CMD(x,a) {                          \
-    ptr->addr= a;                           \
-    ptr->cmd = x;                           \
-    count=0;                                \
-    while((ptr->cmd==x) && count<35) {      \
-        count++;                            \
-        usleep(30000);                      \
-    }                                       \
-    if (count==35)                          \
-        printf("*Error* cmd failed\n");     \
+//#define CMD(x,a) {                          \
+//    ptr->addr= a;                           \
+//    ptr->cmd = x;                           \
+//    count=0;                                \
+//    while((ptr->cmd==x) && count<35) {      \
+//        count++;                            \
+//        usleep(30000);                      \
+//    }                                       \
+//    if (count==35)                          \
+//        printf("*Error* cmd failed\n");     \
+//}
+
+v540_update item;
+
+#define CMD(x,a) {                            \
+    ptr->vm[a] = a;                           \
+    item.addr = a;                            \
+    item.cmd = x;                             \
+    while (v540_update_full(&ptr->vm_write)) {\
+        usleep(1);                            \
+    }                                         \
+    printf("CMD: %d, ADDR: %d\n", item.cmd, item.addr);    \
+    v540_update_push(&ptr->vm_write,&item);   \
 }
+
+implement_fifo(v540_update)
 
 int main( void ) {
     char line[1024];
@@ -29,29 +45,31 @@ int main( void ) {
     uint32_t byte;
     int count;
     int err;
-
-    int shm=shm_open("OSI540-share",O_CREAT|O_RDWR,S_IRUSR | S_IWUSR);
-    struct video540_t* ptr=NULL;
     int done=0;
 
-    if (shm!=-1) {
-        err=ftruncate(shm,sizeof(struct video540_t));
-        if (err) {
-            printf("Error: %s\n",strerror(errno));
-            return 1;
-        }
-        printf("Shared memory created\n");
-        ptr = (struct video540_t*)mmap(NULL,sizeof(struct video540_t),PROT_READ | PROT_WRITE,MAP_SHARED,shm,0);
-    }
-    else {
-        printf("Error: %s\n",strerror(errno));
-        return 1;
-    }
+    //int shm=shm_open("OSI540-share",O_CREAT|O_RDWR,S_IRUSR | S_IWUSR);
+    //struct video540_t* ptr=NULL;
+    //
+    //if (shm!=-1) {
+    //    err=ftruncate(shm,sizeof(struct video540_t));
+    //    if (err) {
+    //        printf("Error: %s\n",strerror(errno));
+    //        return 1;
+    //    }
+    //    printf("Shared memory created\n");
+    //    ptr = (struct video540_t*)mmap(NULL,sizeof(struct video540_t),PROT_READ | PROT_WRITE,MAP_SHARED,shm,0);
+    //}
+    //else {
+    //    printf("Error: %s\n",strerror(errno));
+    //    return 1;
+    //}
+    //
+    //if (!ptr) {
+    //    printf("Error: %s\n",strerror(errno));
+    //    exit(-1);
+    //}
 
-    if (!ptr) {
-        printf("Error: %s\n",strerror(errno));
-        exit(-1);
-    }
+    struct video540_t* ptr = shm_create_mbx(256,NULL);
 
     while (!done) {
         printf("> ");
@@ -100,7 +118,8 @@ int main( void ) {
                 continue;
             }
         }
-        printf("Unrecognized command: %s\n",line);        
+        printf("Unrecognized command: %s\n",line);
     }
+    shm_disconnect();
 
 }

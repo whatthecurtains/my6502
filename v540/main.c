@@ -11,8 +11,11 @@ GtkApplication* app=NULL;
 GtkWidget* main_win=NULL;
 uint8_t *video_mem=NULL;
 char chrfile[256][20];
+GdkPixbuf* characters[256];
 GtkWidget* grid=NULL;
 struct video540_t* mbx=NULL;
+
+implement_fifo(v540_update)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -87,32 +90,51 @@ static gboolean on_key_release(GtkWidget *widget, GdkEventKey *event, gpointer u
     return FALSE;
 }
 
+int load_images_from_files( void ) {
+    for ( int i=0;i<256; i++) {
+        char* pfile=chrfile[i];
+        GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(pfile,NULL);
+        if (!pixbuf) return 0;
+        characters[i]=gdk_pixbuf_scale_simple(pixbuf,12,24,GDK_INTERP_NEAREST);
+        if (!characters[i]) return 0;
+        g_object_unref(pixbuf);
+    }
+    return 1;
+}
 
+void release_images( void ) {
+    for (int i=0; i<256; i++) {
+        g_object_unref(characters[i]);
+    }
+}
 
 // Create a GtkImage from a PNG file named ch_XX.png
 
 GtkWidget* create_image_from_index(uint16_t index) {
-    char* pfile=chrfile[video_mem[index]];
+    //char* pfile=chrfile[video_mem[index]];
     //printf("Creating image from %s\n", pfile);
-    if (index >= 2048) {
-        g_warning("Index out of bounds: %d", index);
-        return gtk_image_new(); // Empty image
-    }
-    if (video_mem[index] >= 256) {
-        g_warning("Invalid character value: %d", video_mem[index]);
-        return gtk_image_new(); // Empty image
-    }
-    //printf("Video memory at index %d is 0x%2.2X\n", index, video_mem[index]);
+    //if (index >= 2048) {
+    //    g_warning("Index out of bounds: %d", index);
+    //    return gtk_image_new(); // Empty image
+    //}
+    //if (video_mem[index] >= 256) {
+    //    g_warning("Invalid character value: %d", video_mem[index]);
+    //    return gtk_image_new(); // Empty image
+    //}
+    ////printf("Video memory at index %d is 0x%2.2X\n", index, video_mem[index]);
+    //
+    //GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(pfile, NULL);
+    //GdkPixbuf* p2=gdk_pixbuf_scale_simple(pixbuf,12,24,GDK_INTERP_NEAREST);
+    //if (!pixbuf) {
+    //    g_warning("Failed to load image: %s", pfile);
+    //    return gtk_image_new(); // Empty image
+    //}
+    //GtkWidget *image = gtk_image_new_from_pixbuf(p2);
+    //g_object_unref(pixbuf);
+    //g_object_unref(p2);
 
-    GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(pfile, NULL);
-    GdkPixbuf* p2=gdk_pixbuf_scale_simple(pixbuf,12,24,GDK_INTERP_NEAREST);
-    if (!pixbuf) {
-        g_warning("Failed to load image: %s", pfile);
-        return gtk_image_new(); // Empty image
-    }
-    GtkWidget *image = gtk_image_new_from_pixbuf(p2);
-    g_object_unref(pixbuf);
-    g_object_unref(p2);
+    GtkWidget* image = gtk_image_new_from_pixbuf(characters[video_mem[index]]);
+
     return image;
 }
 
@@ -177,6 +199,8 @@ static void on_paint_all( GtkWidget* one, gpointer data ) {
             //gtk_widget_queue_draw(chr);
         }
     }
+    v540_update_pop(&mbx->vm_write);
+
     //gtk_widget_queue_draw_area(main_win, 0, 0, 320, 200);
     gtk_widget_queue_draw(grid);
     shm_update_finalize();
@@ -186,10 +210,18 @@ static void on_paint_char( GtkWidget* one, gpointer data ) {
     //printf("on_paint_char called\n");
     if (ready) {
         //printf("ready!\n");
-        int row=(mbx->addr)>>6;
-        int col=(mbx->addr)&0x3f;
-        int addr=(mbx->addr)&0x7FF;
+        int row;
+        int col;
+        int addr;
+        v540_update* ptr=v540_update_tail(&mbx->vm_write);
+        if (!ptr) return;
+
+        addr=(ptr->addr)&0x7FF;
+        row=(addr)>>6;
+        col=(addr)&0x3f;
+        v540_update_pop(&mbx->vm_write);
         char* pfile=chrfile[video_mem[addr]];
+        //printf("Addr %4.4X: %2.2X row=%d col=%d\n",addr,(int)video_mem[addr],row,col);
         GtkWidget* existing_chr = gtk_grid_get_child_at(GTK_GRID(grid), col, row);
 
         if (existing_chr) {
@@ -268,10 +300,17 @@ int main (int argc, char **argv) {
     int status;
     pthread_t thread_id;
     printf("Starting v540 hardware\n");
+    fflush(stdout);
 
     printf("Generating character file names\n");
+    fflush(stdout);
     for (int i=0; i<256;i++){
         sprintf(chrfile[i],"ch_%2.2X.png",i);
+    }
+
+    if (!load_images_from_files()) {
+        printf("Failed to load character images\n");
+        exit(-1);
     }
 
     if (shm_connect(do_paint_all,do_paint_char)) {
@@ -279,9 +318,10 @@ int main (int argc, char **argv) {
         exit(-1);
     }
     mbx = shm_get_mbx();
-    video_mem=(uint8_t*)mbx;
+    video_mem=mbx->vm;
 
     printf("Initializing Video Memory\n");
+    fflush(stdout);
     //for (int i=0;i<sizeof(video_mem); i++) {
     //    video_mem[i]=i&0xFF;
     //}
@@ -301,6 +341,8 @@ int main (int argc, char **argv) {
         exit(-1);
     }
     status = g_application_run (G_APPLICATION (app), argc, argv);
+
+    release_images();
     printf("status = %d\n",status);
     g_object_unref (app);
 

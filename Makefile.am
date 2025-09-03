@@ -4,6 +4,10 @@ bin_PROGRAMS=c2_4p
 
 c2_4p_CFLAGS=-I${top_srcdir}/include -I${top_srcdir}/instr -I${top_srcdir}/v540 -DDEBUG_LOG
 
+AM_CFLAGS=-Wall --std=c11
+
+%.E:${top_srcdir}/src/%.c
+	$(COMPILE) -c $(CFLAGS) $(c2_4p_CFLAGS) -DDEBUG_LOG -E -o $@  $<
 
 c2_4p_SOURCES= \
 ${top_srcdir}/src/main.c				\
@@ -18,6 +22,7 @@ ${top_srcdir}/include/address_mode.h	\
 ${top_srcdir}/include/debug_output.h	\
 ${top_srcdir}/src/debug_output.c		\
 ${top_srcdir}/src/shmem.c				\
+${top_srcdir}/include/fifo.h			\
 ${top_srcdir}/include/shmem.h			\
 ${top_srcdir}/instr/ADC.c				\
 ${top_srcdir}/instr/ADC_def.h			\
