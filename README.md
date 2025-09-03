@@ -11,6 +11,7 @@ There are two programs that need to be built in order to run the simulator. The 
 in v540.
 
 This can be built as follows:
+
     cd v540/build
     ../configure
     make video
