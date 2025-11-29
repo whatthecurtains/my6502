@@ -2,6 +2,7 @@
 #include <stdio.h>
 //#include <stdint.h>
 #include <pthread.h>
+#include <inttypes.h>
 //#include <string.h>
 //#include <errno.h>
 
@@ -82,6 +83,9 @@ static int ready = 0;
 
 static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
     printf("Key pressed: keyval=%u, hardware_keycode=%u\n", event->keyval, event->hardware_keycode);
+    gunichar ch = gdk_keyval_to_unicode(event->keyval);
+    printf("Unicode character: U+%04X\n", ch);
+    printf("%" PRIu32 "\n", ch);
     return FALSE; // Return TRUE to stop further handling
 }
 
@@ -111,27 +115,6 @@ void release_images( void ) {
 // Create a GtkImage from a PNG file named ch_XX.png
 
 GtkWidget* create_image_from_index(uint16_t index) {
-    //char* pfile=chrfile[video_mem[index]];
-    //printf("Creating image from %s\n", pfile);
-    //if (index >= 2048) {
-    //    g_warning("Index out of bounds: %d", index);
-    //    return gtk_image_new(); // Empty image
-    //}
-    //if (video_mem[index] >= 256) {
-    //    g_warning("Invalid character value: %d", video_mem[index]);
-    //    return gtk_image_new(); // Empty image
-    //}
-    ////printf("Video memory at index %d is 0x%2.2X\n", index, video_mem[index]);
-    //
-    //GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(pfile, NULL);
-    //GdkPixbuf* p2=gdk_pixbuf_scale_simple(pixbuf,12,24,GDK_INTERP_NEAREST);
-    //if (!pixbuf) {
-    //    g_warning("Failed to load image: %s", pfile);
-    //    return gtk_image_new(); // Empty image
-    //}
-    //GtkWidget *image = gtk_image_new_from_pixbuf(p2);
-    //g_object_unref(pixbuf);
-    //g_object_unref(p2);
 
     GtkWidget* image = gtk_image_new_from_pixbuf(characters[video_mem[index]]);
 
@@ -139,44 +122,6 @@ GtkWidget* create_image_from_index(uint16_t index) {
 }
 
 
-/* static void on_paint_all(GtkWidget* one, gpointer data) {
-    printf("on_paint_all called\n");
-    if (ready) {
-        printf("ready!\n");
-
-        // Remove all children from the grid
-        GList *children, *iter;
-        children = gtk_container_get_children(GTK_CONTAINER(grid));
-        for (iter = children; iter != NULL; iter = g_list_next(iter)) {
-            gtk_widget_destroy(GTK_WIDGET(iter->data));
-        }
-        g_list_free(children);
-
-        for (int i = 0; i < 2048; i++) {
-            int row = i >> 6;
-            int col = i & 0x3f;
-            GtkWidget* chr = create_image_from_index(i);
-            gtk_grid_attach(GTK_GRID(grid), chr, col, row, 1, 1);
-            gtk_widget_queue_draw(chr);
-        }
-    }
-    gtk_widget_queue_draw(main_win);
-} */
-
-/* GtkWidget* get_grid_child_at(GtkGrid *grid, int col, int row) {
-    GList *children = gtk_container_get_children(GTK_CONTAINER(grid));
-    for (GList *l = children; l != NULL; l = l->next) {
-        GtkWidget *child = GTK_WIDGET(l->data);
-        int c, r, w, h;
-        gtk_grid_query_child(grid, child, &c, &r, &w, &h);
-        if (c == col && r == row) {
-            g_list_free(children);
-            return child;
-        }
-    }
-    g_list_free(children);
-    return NULL;
-} */
 
 static void on_paint_all( GtkWidget* one, gpointer data ) {
     //printf("on_paint_all called\n");
