@@ -37,6 +37,7 @@ uint8_t memrd( uint16_t addr ) {
     uint8_t res;
     if ( ishw(addr) ) {
         res = hw_read(addr);
+        memspace[addr] = res;
     }
     else {
         res = memspace[addr];

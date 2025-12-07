@@ -10,12 +10,24 @@
 
 implement_fifo(v540_update)
 
+implement_fifo(v500_kbd)
+
+
 
 int shm=-1;
 struct video540_t* ptr=NULL;
 
+int shkb=-1;
+fifo_v500_kbd_t* kbptr=NULL;
+
+size_t fifo_size=0;
+
 paint_all_t paint_all=NULL;
 paint_char_t paint_char=NULL;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Called from the video process (child)
 
 int shm_connect(paint_all_t cb1, paint_char_t cb2) {
     shm=shm_open("OSI540-share",O_RDWR,S_IRUSR | S_IWUSR);
@@ -36,13 +48,36 @@ int shm_connect(paint_all_t cb1, paint_char_t cb2) {
     return 0;
 }
 
+int kbshm_connect(size_t size) {
+    fifo_size=sizeof(fifo_v500_kbd_t)+size*sizeof(v500_kbd);
+    shkb = shm_open("OSI500_kbd", O_RDWR, S_IRUSR|S_IWUSR);
+    if (shkb!=-1) {
+        kbptr = (fifo_v500_kbd_t*) mmap(NULL,fifo_size,PROT_READ | PROT_WRITE,MAP_SHARED,shkb,0);
+    }
+    else {
+        printf("Error: %s connecting keyboard fifo\n",strerror(errno));
+        return 1;
+    }
+    if (!kbptr) {
+        printf("Error: %s connecting keyboard fifo\n",strerror(errno));
+        return 1;
+    }
+    return 0;
+}
+
 struct video540_t* shm_get_mbx(void) {
     return ptr;
+}
+
+fifo_v500_kbd_t* shkb_get_fifo(void) {
+    return kbptr;
 }
 
 int shm_disconnect() {
     munmap(ptr,sizeof(struct video540_t));
     shm_unlink("OSI540-share");
+    munmap(kbptr,fifo_size);
+    shm_unlink("OSI500_kbd");
     //close(shm);
 }
 
@@ -89,11 +124,33 @@ void* shm_cmd_loop(void* nothing) {
     return NULL;
 }
 
+// Called from the client (read) side of the fifo
+fifo_v500_kbd_t* kbshm_create_fifo( size_t size ) {
+    int err;
+    size_t fifo_size=sizeof(fifo_v500_kbd_t)+size*sizeof(v500_kbd);
+    shkb = shm_open( "OSI500_kbd", O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
+    if (shkb!=-1) {
+        err=ftruncate(shkb, fifo_size);
+        kbptr = (fifo_v500_kbd_t*) mmap(NULL,fifo_size,PROT_READ | PROT_WRITE,MAP_SHARED,shkb,0);
+    }
+    else {
+        printf("Error %s\n",strerror(errno));
+        return NULL;
+    }
+    if (!kbptr) {
+        printf("Error %s\n",strerror(errno));
+        return NULL;
+    }
+    v500_kbd_fifo_init(&kbptr,size);
+    return kbptr;
+}
+
+// Need to write the code here to create the file on the server (write) side of the fifo
+// which will be called from the video app.
 
 static int                  _shm=-1;
 static struct video540_t*   _vmem=NULL;
 static uint8_t*             gimage=NULL;
-
 
 struct video540_t* shm_create_mbx(int size,uint8_t* vmem_ptr) {
     int err;
@@ -141,4 +198,5 @@ struct video540_t* shm_create_mbx(int size,uint8_t* vmem_ptr) {
     }
     return _vmem;
 }
+
 

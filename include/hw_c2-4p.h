@@ -10,7 +10,14 @@ typedef struct  {
     v540_cmd_t  cmd;
 } v540_update;
 
+typedef struct {
+    uint16_t    keycode;
+    uint8_t     keyval;
+    bool        down;
+} v500_kbd;
+
 declare_fifo(v540_update)
+declare_fifo(v500_kbd)
 
 struct video540_t {
     uint8_t             vm[2048];

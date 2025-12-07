@@ -22,6 +22,8 @@ ${top_srcdir}/include/address_mode.h	\
 ${top_srcdir}/include/debug_output.h	\
 ${top_srcdir}/src/debug_output.c		\
 ${top_srcdir}/src/shmem.c				\
+${top_srcdir}/src/keydecode.c			\
+${top_srcdir}/include/keydecode.h		\
 ${top_srcdir}/include/fifo.h			\
 ${top_srcdir}/include/shmem.h			\
 ${top_srcdir}/instr/ADC.c				\
