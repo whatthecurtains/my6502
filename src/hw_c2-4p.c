@@ -29,7 +29,7 @@ int myfunc(void) {
 #define ACIA_BASE (0xC000)
 #define ACIA_SIZE (0x10)
 
-#define KBD_BASE  (0xC200)
+#define KBD_BASE  (0xDF00)
 #define KBD_SIZE  (0x10)
 
 #define PIO_BASE  (0xC800)
@@ -247,18 +247,10 @@ void    ACIA_halt ( uint8_t* image) {
 
 
 implement_fifo(v500_kbd)
-fifo_v500_kbd_t* pkbd=NULL;
 static bool kbstop = false;
 
 void    KBD_init ( uint8_t* image) {
-    pkbd=kbshm_create_fifo(128);
     pid_t kbproc;
-    if (!pkbd) {
-        printf("Error %s connecting kbd fifo",strerror(errno));
-        return;
-    }
-    printf("KBD_init: fifo at %p, about to fork()\n", (void*)pkbd);
-    fflush(stdout);
     kbproc=fork();
     if (kbproc == -1) {
         printf("Failed to create child process for kbd monitoring: %s\n", strerror(errno));
@@ -266,17 +258,25 @@ void    KBD_init ( uint8_t* image) {
         exit(-1);
     }
     else if (kbproc == 0) {
+        fprintf(stderr,"KBD child started (pid=%d)\n", (int)getpid());
+        fifo_v500_kbd_t* pkbd=NULL;
+        pkbd=kbshm_create_fifo(128);
+        fprintf(stderr,"kbd fifo size=%ld\n",pkbd->size);
+        if (!pkbd) {
+            printf("Error %s connecting kbd fifo",strerror(errno));
+            return;
+        }
         /* Child process: monitor keyboard fifo and update keystate */
-        printf("KBD child started (pid=%d)\n", (int)getpid());
-        fflush(stdout);
+        //fflush(stdout);
         while(!kbstop) {
             while (!v500_kbd_empty(pkbd)) {
+                fprintf(stderr,"Got kbd event\n");
                 v500_kbd* pkey_event=v500_kbd_tail(pkbd);
                 update_keystate(pkey_event->down,pkey_event->keycode,pkey_event->keyval);
                 v500_kbd_pop(pkbd);
             }
             /* avoid busy spin */
-            usleep(1000);
+            usleep(10);
         }
         /* Child should exit when done */
         printf("KBD child exiting\n"); fflush(stdout);
@@ -285,8 +285,8 @@ void    KBD_init ( uint8_t* image) {
     else {
         /* Parent */
         sleep(1);
-        printf("KEYBOARD monitoring process id: %d\n", (int)kbproc);
-        fflush(stdout);
+        fprintf(stderr,"KEYBOARD monitoring process id: %d\n", (int)kbproc);
+        //fflush(stdout);
     }
 }
 
@@ -299,9 +299,14 @@ void    KBD_write( uint16_t addr, uint8_t data) {
 uint8_t KBD_read ( uint16_t addr ) {
     uint8_t index=gimage[addr];
     uint8_t scancode=0;
-    for (int i=1,idx=0;i<256;i<<1,idx++) {
+    static uint8_t scancode_last=0;
+    for (int i=1,idx=0;i<256;i=i<<1,idx++) {
         scancode |= (index&i)!=0 ? OSI_keystate[idx] :0;
     }
+    if (scancode_last!=scancode) {
+        fprintf(stderr,"kbd event %d\n", (uint32_t)scancode);
+    }
+    scancode_last=scancode;
     return scancode;
 }
 
