@@ -62,6 +62,7 @@ int kbshm_connect(size_t size) {
         printf("Error: %s connecting keyboard fifo\n",strerror(errno));
         return 1;
     }
+    printf("(video) fifo size = %ld\n", kbptr->size);
     return 0;
 }
 

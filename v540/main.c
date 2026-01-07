@@ -92,12 +92,11 @@ static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer use
     evt.down=true;
 
 
-    printf("Key pressed: keyval=%u, hardware_keycode=%u\n", event->keyval, event->hardware_keycode);
-    //gunichar ch = gdk_keyval_to_unicode(event->keyval);
-    //printf("Unicode character: U+%04X\n", ch);
-    //printf("%" PRIu32 "\n", ch);
+    printf("Key pressed: keyval=%u, keycode=%u\n", evt.keyval, evt.keycode);
     v500_kbd_push(kbd_fifo,&evt);
-    printf("fifo state empty=%d full=%d\n",(int)v500_kbd_empty(kbd_fifo),(int)v500_kbd_full(kbd_fifo));
+    printf("fifo size : %ld\n     head : %d\n     tail : %d\nstate empty=%d full=%d\n",
+        (uint64_t)kbd_fifo->size,kbd_fifo->head,kbd_fifo->tail,(int)v500_kbd_empty(kbd_fifo),(int)v500_kbd_full(kbd_fifo));
+    fflush(stdout);
     return FALSE; // Return TRUE to stop further handling
 }
 
@@ -107,10 +106,13 @@ static gboolean on_key_release(GtkWidget *widget, GdkEventKey *event, gpointer u
     evt.keyval=event->keyval;
     evt.down=false;
 
-    printf("Key released: keyval=%u, hardware_keycode=%u\n", event->keyval, event->hardware_keycode);
+    printf("Key released: keyval=%u, keycode=%u\n", evt.keyval, evt.keycode);
     v500_kbd_push(kbd_fifo,&evt);
-    printf("fifo state empty=%d full=%d\n",(int)v500_kbd_empty(kbd_fifo),(int)v500_kbd_full(kbd_fifo));
+    printf("fifo size : %ld\n     head : %d\n     tail : %d\nstate empty=%d full=%d\n",
+        (uint64_t)kbd_fifo->size,kbd_fifo->head,kbd_fifo->tail,(int)v500_kbd_empty(kbd_fifo),(int)v500_kbd_full(kbd_fifo));
+    fflush(stdout);
     return FALSE;
+
 }
 
 int load_images_from_files( void ) {
@@ -293,7 +295,7 @@ int main (int argc, char **argv) {
     shm_connect(do_paint_all,do_paint_char);
     kbshm_connect(128);
     kbd_fifo=shkb_get_fifo();
-    printf("kbd_fifo: @%p\n",kbd_fifo);
+    printf("kbd_fifo : @%p\n",kbd_fifo);
 
     app = gtk_application_new ("org.gtk.example", 0);
     g_signal_connect (app, "activate", G_CALLBACK (act), NULL);

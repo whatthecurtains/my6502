@@ -35,6 +35,7 @@ v540_update item;
 }
 
 implement_fifo(v540_update)
+implement_fifo(v500_kbd)
 
 int main( void ) {
     char line[1024];
@@ -69,7 +70,8 @@ int main( void ) {
     //    exit(-1);
     //}
 
-    struct video540_t* ptr = shm_create_mbx(256,NULL);
+    struct video540_t* ptr = shm_create_mbx(64,NULL);
+    fifo_v500_kbd_t* kbptr = kbshm_create_fifo(128);
 
     while (!done) {
         printf("> ");
@@ -97,6 +99,24 @@ int main( void ) {
         if (2==sscanf(line,"%s %x",cmd,&byte)) {
             if (!strncmp("get",cmd,3)) {
                 printf("0x%3.3X: 0x%2.2X\n", byte,ptr->vm[byte]);
+                continue;
+            }
+        }
+
+        if (2==sscanf(line,"%s %s",cmd,opt)) {
+            if (!strncmp("get",cmd,3) && !strncmp("kbd",opt,3)) {
+                v500_kbd* element;
+                printf("kbd fifo @ %p\n",kbptr);
+                printf("fifo size : %ld\n",(uint64_t)kbptr->size);
+                printf("fifo head : %d\n",kbptr->head);
+                printf("fifo tail : %d\n",kbptr->tail);
+                if (!v500_kbd_empty(kbptr)) {
+                    element = v500_kbd_tail(kbptr);
+                    printf("v500_kbd->keycode = %d\n",element->keycode);
+                    printf("v500_kbd->keyval  = %d\n",element->keyval);
+                    printf("v500_kbd->down    = %d\n",(unsigned int)element->down);
+                    v500_kbd_pop(kbptr);
+                }
                 continue;
             }
         }

@@ -248,9 +248,13 @@ void    ACIA_halt ( uint8_t* image) {
 
 implement_fifo(v500_kbd)
 static bool kbstop = false;
+static fifo_v500_kbd_t* pkbd=NULL;
 
 void    KBD_init ( uint8_t* image) {
     pid_t kbproc;
+    pkbd=kbshm_create_fifo(128);
+    fprintf(stderr,"kbd fifo size=%ld\n",pkbd->size);
+
     kbproc=fork();
     if (kbproc == -1) {
         printf("Failed to create child process for kbd monitoring: %s\n", strerror(errno));
@@ -258,19 +262,19 @@ void    KBD_init ( uint8_t* image) {
         exit(-1);
     }
     else if (kbproc == 0) {
-        fprintf(stderr,"KBD child started (pid=%d)\n", (int)getpid());
-        fifo_v500_kbd_t* pkbd=NULL;
-        pkbd=kbshm_create_fifo(128);
-        fprintf(stderr,"kbd fifo size=%ld\n",pkbd->size);
+        printf("KBD child started (pid=%d)\n", (int)getpid());
+        fflush(stdout);
         if (!pkbd) {
             printf("Error %s connecting kbd fifo",strerror(errno));
+            fflush(stdout);
             return;
         }
         /* Child process: monitor keyboard fifo and update keystate */
         //fflush(stdout);
         while(!kbstop) {
             while (!v500_kbd_empty(pkbd)) {
-                fprintf(stderr,"Got kbd event\n");
+                printf("Got kbd event\n");
+                fflush(stdout);
                 v500_kbd* pkey_event=v500_kbd_tail(pkbd);
                 update_keystate(pkey_event->down,pkey_event->keycode,pkey_event->keyval);
                 v500_kbd_pop(pkbd);
@@ -285,8 +289,8 @@ void    KBD_init ( uint8_t* image) {
     else {
         /* Parent */
         sleep(1);
-        fprintf(stderr,"KEYBOARD monitoring process id: %d\n", (int)kbproc);
-        //fflush(stdout);
+        printf("KEYBOARD monitoring process id: %d\n", (int)kbproc);
+        fflush(stdout);
     }
 }
 
@@ -304,7 +308,8 @@ uint8_t KBD_read ( uint16_t addr ) {
         scancode |= (index&i)!=0 ? OSI_keystate[idx] :0;
     }
     if (scancode_last!=scancode) {
-        fprintf(stderr,"kbd event %d\n", (uint32_t)scancode);
+        printf("kbd event %d\n", (uint32_t)scancode);
+        fflush(stdout);
     }
     scancode_last=scancode;
     return scancode;
