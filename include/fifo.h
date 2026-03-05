@@ -15,7 +15,7 @@ typedef atomic_uint_least32_t   fifo_idx_t;
 
 #define declare_fifo(type)                                                              \
                                                                                         \
-typedef struct {                                                               \
+typedef struct {                                                                        \
     fifo_idx_t  head;                                                                   \
     fifo_idx_t  tail;                                                                   \
     size_t      size;                                                                   \

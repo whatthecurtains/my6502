@@ -25,6 +25,7 @@ ${top_srcdir}/src/shmem.c				\
 ${top_srcdir}/src/keydecode.c			\
 ${top_srcdir}/include/keydecode.h		\
 ${top_srcdir}/include/fifo.h			\
+${top_srcdir}/include/shmfifo.h			\
 ${top_srcdir}/include/shmem.h			\
 ${top_srcdir}/instr/ADC.c				\
 ${top_srcdir}/instr/ADC_def.h			\

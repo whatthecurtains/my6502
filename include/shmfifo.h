@@ -17,7 +17,8 @@ implement_fifo(type)                                                            
 static inline int type##_shm_fifo_create(const char* path, size_t num, fifo_##type##_t** q) {       \
     int fh=shm_open(path,O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);                                      \
     if (fh<0) return fh;                                                                            \
-    ftruncate(fh,num);                                                                              \
+    if (-1==ftruncate(fh,num))                                                                      \
+        return errno;                                                                               \
     size_t ms = sizeof(fifo_##type##_t)+num*sizeof(type);                                           \
     (*q)=(fifo_##type##_t*)mmap(NULL,ms,PROT_READ | PROT_WRITE, MAP_SHARED, fh, 0);                 \
     if (MAP_FAILED==(*q)) {                                                                         \

@@ -7,10 +7,12 @@
 #include <unistd.h>
 #include "shmem.h"
 #include "hw_c2-4p.h"
+#include "fifo.h"
+#include "shmfifo.h"
+
 
 implement_fifo(v540_update)
 
-implement_fifo(v500_kbd)
 
 
 
@@ -25,6 +27,7 @@ size_t fifo_size=0;
 paint_all_t paint_all=NULL;
 paint_char_t paint_char=NULL;
 
+implement_shmfifo(v500_kbd)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Called from the video process (child)
@@ -49,7 +52,7 @@ int shm_connect(paint_all_t cb1, paint_char_t cb2) {
 }
 
 int kbshm_connect(size_t size) {
-    fifo_size=sizeof(fifo_v500_kbd_t)+size*sizeof(v500_kbd);
+/*    fifo_size=sizeof(fifo_v500_kbd_t)+size*sizeof(v500_kbd);
     shkb = shm_open("OSI500_kbd", O_RDWR, S_IRUSR|S_IWUSR);
     if (shkb!=-1) {
         kbptr = (fifo_v500_kbd_t*) mmap(NULL,fifo_size,PROT_READ | PROT_WRITE,MAP_SHARED,shkb,0);
@@ -64,6 +67,15 @@ int kbshm_connect(size_t size) {
     }
     printf("(video) fifo size = %ld\n", kbptr->size);
     return 0;
+*/
+    int retval= v500_kbd_shm_fifo_connect("OSI_v500_kbd",128, &kbptr);
+    if (retval==-1) {
+        printf("MMAP failed during shared memory fifo connect.\n");
+    }
+    else if ( retval<-1 ) {
+        printf("kbdhm_connect: %s\n",strerror(retval));
+    }
+    return retval;
 }
 
 struct video540_t* shm_get_mbx(void) {
@@ -77,8 +89,9 @@ fifo_v500_kbd_t* shkb_get_fifo(void) {
 int shm_disconnect() {
     munmap(ptr,sizeof(struct video540_t));
     shm_unlink("OSI540-share");
-    munmap(kbptr,fifo_size);
-    shm_unlink("OSI500_kbd");
+/*    munmap(kbptr,fifo_size);
+    shm_unlink("OSI500_kbd"); */
+    v500_kbd_shm_fifo_disconnect("OSI_v500_kbd",128,kbptr);
     //close(shm);
 }
 
@@ -127,7 +140,7 @@ void* shm_cmd_loop(void* nothing) {
 
 // Called from the client (read) side of the fifo
 fifo_v500_kbd_t* kbshm_create_fifo( size_t size ) {
-    int err;
+/*    int err;
     size_t fifo_size=sizeof(fifo_v500_kbd_t)+size*sizeof(v500_kbd);
     shkb = shm_open( "OSI500_kbd", O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
     if (shkb!=-1) {
@@ -143,6 +156,14 @@ fifo_v500_kbd_t* kbshm_create_fifo( size_t size ) {
         return NULL;
     }
     v500_kbd_fifo_init(&kbptr,size);
+    return kbptr;
+*/
+
+    int retval=v500_kbd_shm_fifo_create("OSI_v500_kbd",128,&kbptr);
+    if (retval==-1)
+        printf("MMAP failed during shared memory fifo connect.\n");
+    else if (retval<0)
+        printf("kbshm_create_fifo: %s\n",strerror(retval));
     return kbptr;
 }
 
