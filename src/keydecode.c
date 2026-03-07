@@ -1,6 +1,7 @@
 
 
 #include <stdint.h>
+#include <stdio.h>
 #include "keydecode.h"
 
 uint8_t OSI_keystate[8];
@@ -14,7 +15,7 @@ static inline uint8_t keycode_up(uint8_t keycode, uint8_t key) {
 }
 
 void update_keystate(bool down, uint16_t val, uint8_t key) {
-    uint32_t index=key<<16|val;
+    uint32_t index=val<<16|key;
     uint8_t  row;
     uint8_t  col;
     switch(index) {
@@ -79,7 +80,10 @@ void update_keystate(bool down, uint16_t val, uint8_t key) {
     else {
         OSI_keystate[row] = keycode_up(OSI_keystate[row],col);
     }
+    printf("[update_keystate] row=%d col=%d state=%02X\n", row, col, OSI_keystate[row]);
+    return; 
 skip:
+    //printf("[update_keystate] unmapped key 0x%6.6X\n", index);
     return;
 }
 

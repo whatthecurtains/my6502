@@ -16,13 +16,15 @@ static image_t memimage=INVALID;
 //#define watch_addr(x)  (  \
 //    ( (x&~0x1f)==0x0200 ) || \
 //    ( (x&~0x1f)==0xFFE0 ) )
-
+//#define watch_addr(x) ( \
+//    x == 0xDF00         \
+//)
 
 #define watch_addr(x) 0
 
 void    memwr( uint16_t addr, uint8_t data ) {
     if (watch_addr(addr)) {
-        printf("writing temporary storage: $%4.4X <= %2.2X\n",addr,data);
+        printf("writing kbd: $%4.4X <= %2.2X\n",addr,data);
     }
     memspace[addr] = data;
     if ( ishw(addr) ) {
@@ -43,7 +45,7 @@ uint8_t memrd( uint16_t addr ) {
         res = memspace[addr];
     }
     if (watch_addr(addr)) {
-        printf("reading temporary storage: $%4.4X => %2.2X\n",addr,res);
+        printf("reading kbd: $%4.4X => %2.2X\n",addr,res);
     }
     return res;
 }

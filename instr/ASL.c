@@ -8,6 +8,8 @@ all_regs_t* ASL_##mode(all_regs_t* reg, uint8_t low, uint8_t high, uint64_t* cyc
     mode(reg,low,high,1)                                                            \
     reg->SR.C = OP&0x80 ? 1 : 0;                                                    \
     reg->A = (OP)<<1;                                                               \
+    reg->SR.Z = (reg->A == 0) ? 1 : 0;                                             \
+    reg->SR.N = (reg->A & 0x80) ? 1 : 0;                                           \
     *cyc += (cc);                                                                   \
     return reg;                                                                     \
 }

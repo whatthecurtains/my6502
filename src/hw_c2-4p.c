@@ -15,6 +15,7 @@
 #include "keydecode.h"
 #include "shmem.h"
 
+
 implement_fifo(v540_update)
 
 
@@ -255,7 +256,8 @@ void    KBD_init ( uint8_t* image) {
     pkbd=kbshm_create_fifo(128);
     fprintf(stderr,"kbd fifo size=%ld\n",pkbd->size);
 
-    kbproc=fork();
+    kbproc=fork(); // This is the problem. I forked here and so when update_keystate is called it updates the child process'
+    // copy of OSI_keystate. The parent process' copy remains unchanged.
     if (kbproc == -1) {
         printf("Failed to create child process for kbd monitoring: %s\n", strerror(errno));
         fflush(stdout);
@@ -273,7 +275,7 @@ void    KBD_init ( uint8_t* image) {
         //fflush(stdout);
         while(!kbstop) {
             while (!v500_kbd_empty(pkbd)) {
-                printf("Got kbd event\n");
+                printf("[KBD child]: Got kbd event\n");
                 fflush(stdout);
                 v500_kbd* pkey_event=v500_kbd_tail(pkbd);
                 update_keystate(pkey_event->down,pkey_event->keycode,pkey_event->keyval);
@@ -306,9 +308,11 @@ uint8_t KBD_read ( uint16_t addr ) {
     static uint8_t scancode_last=0;
     for (int i=1,idx=0;i<256;i=i<<1,idx++) {
         scancode |= (index&i)!=0 ? OSI_keystate[idx] :0;
+        printf("[KBD read]: OSI_keystate[%d]=%02X\n", idx, OSI_keystate[idx]);
     }
+    printf("[KBD read]: index=%d scancode=%d\n", index, scancode);
     if (scancode_last!=scancode) {
-        printf("kbd event %d\n", (uint32_t)scancode);
+        printf("[C2_4P SIM]:  kbd event %d\n", (uint32_t)scancode);
         fflush(stdout);
     }
     scancode_last=scancode;
