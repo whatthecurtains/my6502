@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <pthread.h>
 
 #include <stdint.h>
 #include "bus.h"
@@ -250,51 +251,62 @@ void    ACIA_halt ( uint8_t* image) {
 implement_fifo(v500_kbd)
 static bool kbstop = false;
 static fifo_v500_kbd_t* pkbd=NULL;
+static pthread_t kbd_thread_id;
 
-void    KBD_init ( uint8_t* image) {
-    pid_t kbproc;
-    pkbd=kbshm_create_fifo(128);
-    fprintf(stderr,"kbd fifo size=%ld\n",pkbd->size);
-
-    kbproc=fork(); // This is the problem. I forked here and so when update_keystate is called it updates the child process'
-    // copy of OSI_keystate. The parent process' copy remains unchanged.
-    if (kbproc == -1) {
-        printf("Failed to create child process for kbd monitoring: %s\n", strerror(errno));
+// Thread function for keyboard monitoring
+static void* kbd_monitor_thread(void* arg) {
+    printf("KBD monitor thread started (tid=%ld)\n", (long)pthread_self());
+    fflush(stdout);
+    if (!pkbd) {
+        printf("Error: pkbd not initialized\n");
         fflush(stdout);
-        exit(-1);
+        return NULL;
     }
-    else if (kbproc == 0) {
-        printf("KBD child started (pid=%d)\n", (int)getpid());
-        fflush(stdout);
-        if (!pkbd) {
-            printf("Error %s connecting kbd fifo",strerror(errno));
+    /* Monitor keyboard fifo and update keystate */
+    while(!kbstop) {
+        while (!v500_kbd_empty(pkbd)) {
+            printf("[KBD thread]: Got kbd event\n");
             fflush(stdout);
-            return;
-        }
-        /* Child process: monitor keyboard fifo and update keystate */
-        //fflush(stdout);
-        while(!kbstop) {
-            while (!v500_kbd_empty(pkbd)) {
-                printf("[KBD child]: Got kbd event\n");
-                fflush(stdout);
-                v500_kbd* pkey_event=v500_kbd_tail(pkbd);
-                update_keystate(pkey_event->down,pkey_event->keycode,pkey_event->keyval);
-                v500_kbd_pop(pkbd);
-            }
+            v500_kbd* pkey_event=v500_kbd_tail(pkbd);
+            update_keystate(pkey_event->down,pkey_event->keycode,pkey_event->keyval);
+            v500_kbd_pop(pkbd);
             /* avoid busy spin */
             usleep(10);
         }
-        /* Child should exit when done */
-        printf("KBD child exiting\n"); fflush(stdout);
-        _exit(0);
+        /* avoid busy spin */
+        usleep(10);
     }
-    else {
-        /* Parent */
-        sleep(1);
-        printf("KEYBOARD monitoring process id: %d\n", (int)kbproc);
-        fflush(stdout);
-    }
+    /* Thread cleanup */
+    printf("KBD monitor thread exiting\n");
+    fflush(stdout);
+    return NULL;
 }
+
+void    KBD_init ( uint8_t* image) {
+    int err;
+    pkbd=kbshm_create_fifo(128);
+    fprintf(stderr,"kbd fifo size=%ld\n",pkbd->size);
+
+    if (!pkbd) {
+        printf("Error: failed to create kbd fifo\n");
+        fflush(stdout);
+        exit(-1);
+    }
+
+    /* Create keyboard monitoring thread */
+    err = pthread_create(&kbd_thread_id, NULL, kbd_monitor_thread, NULL);
+    if (err != 0) {
+        printf("Failed to create keyboard monitoring thread: %s\n", strerror(err));
+        fflush(stdout);
+        exit(-1);
+    }
+
+    /* Allow thread to initialize */
+    sleep(1);
+    printf("KEYBOARD monitoring thread created (tid=%ld)\n", (long)kbd_thread_id);
+    fflush(stdout);
+}
+
 
 
 void    KBD_write( uint16_t addr, uint8_t data) {
@@ -308,9 +320,9 @@ uint8_t KBD_read ( uint16_t addr ) {
     static uint8_t scancode_last=0;
     for (int i=1,idx=0;i<256;i=i<<1,idx++) {
         scancode |= (index&i)!=0 ? OSI_keystate[idx] :0;
-        printf("[KBD read]: OSI_keystate[%d]=%02X\n", idx, OSI_keystate[idx]);
+        //printf("[KBD read]: OSI_keystate[%d]=%02X\n", idx, OSI_keystate[idx]);
     }
-    printf("[KBD read]: index=%d scancode=%d\n", index, scancode);
+    //printf("[KBD read]: index=%d scancode=%d\n", index, scancode);
     if (scancode_last!=scancode) {
         printf("[C2_4P SIM]:  kbd event %d\n", (uint32_t)scancode);
         fflush(stdout);

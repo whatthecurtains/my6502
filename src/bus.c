@@ -45,7 +45,8 @@ uint8_t memrd( uint16_t addr ) {
         res = memspace[addr];
     }
     if (watch_addr(addr)) {
-        printf("reading kbd: $%4.4X => %2.2X\n",addr,res);
+         if (res!=0)
+            printf("reading kbd: $%4.4X => %2.2X\n",addr,res);
     }
     return res;
 }
