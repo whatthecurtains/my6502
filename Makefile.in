@@ -92,7 +92,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = c2_4p$(EXEEXT)
+bin_PROGRAMS = c2_4p$(EXEEXT) instruction_verify$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -178,6 +178,71 @@ c2_4p_OBJECTS = $(am_c2_4p_OBJECTS)
 c2_4p_LDADD = $(LDADD)
 c2_4p_LINK = $(CCLD) $(c2_4p_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
+am_instruction_verify_OBJECTS = $(top_builddir)/src/instruction_verify-opcode_verify.$(OBJEXT) \
+	$(top_builddir)/src/instruction_verify-bus_verify.$(OBJEXT) \
+	$(top_builddir)/src/instruction_verify-instruction.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-ADC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-AND.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-ASL.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BCC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BCS.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BEQ.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BIT.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BMI.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BNE.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BPL.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BRK.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BVC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-BVS.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CLC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CLD.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CLI.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CLV.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CMP.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CPX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-CPY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-DCP.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-DEC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-DEX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-DEY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-EOR.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-INC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-INX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-INY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-JMP.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-JSR.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-LDA.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-LDX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-LDY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-LSR.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-NOP.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-ORA.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-PHA.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-PHP.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-PLA.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-PLP.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-ROL.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-ROR.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-RTI.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-RTS.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-SBC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-SEC.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-SED.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-SEI.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-SHY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-STA.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-STX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-STY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-TAX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-TAY.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-TSX.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-TXA.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-TXS.$(OBJEXT) \
+	$(top_builddir)/instr/instruction_verify-TYA.$(OBJEXT)
+instruction_verify_OBJECTS = $(am_instruction_verify_OBJECTS)
+instruction_verify_DEPENDENCIES =
+instruction_verify_LINK = $(CCLD) $(instruction_verify_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -251,13 +316,74 @@ am__depfiles_remade = $(top_builddir)/instr/$(DEPDIR)/c2_4p-ADC.Po \
 	$(top_builddir)/instr/$(DEPDIR)/c2_4p-TXA.Po \
 	$(top_builddir)/instr/$(DEPDIR)/c2_4p-TXS.Po \
 	$(top_builddir)/instr/$(DEPDIR)/c2_4p-TYA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Po \
+	$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Po \
 	$(top_builddir)/src/$(DEPDIR)/c2_4p-bus.Po \
 	$(top_builddir)/src/$(DEPDIR)/c2_4p-debug_output.Po \
 	$(top_builddir)/src/$(DEPDIR)/c2_4p-hw_c2-4p.Po \
 	$(top_builddir)/src/$(DEPDIR)/c2_4p-instruction.Po \
 	$(top_builddir)/src/$(DEPDIR)/c2_4p-keydecode.Po \
 	$(top_builddir)/src/$(DEPDIR)/c2_4p-main.Po \
-	$(top_builddir)/src/$(DEPDIR)/c2_4p-shmem.Po
+	$(top_builddir)/src/$(DEPDIR)/c2_4p-shmem.Po \
+	$(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Po \
+	$(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Po \
+	$(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Po
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -275,8 +401,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(c2_4p_SOURCES)
-DIST_SOURCES = $(c2_4p_SOURCES)
+SOURCES = $(c2_4p_SOURCES) $(instruction_verify_SOURCES)
+DIST_SOURCES = $(c2_4p_SOURCES) $(instruction_verify_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -424,6 +550,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 c2_4p_CFLAGS = -I${top_srcdir}/include -I${top_srcdir}/instr -I${top_srcdir}/v540 -DDEBUG_LOG
+instruction_verify_CFLAGS = -I${top_srcdir}/include -I${top_srcdir}/instr
 AM_CFLAGS = -Wall --std=c11
 c2_4p_SOURCES = \
 ${top_srcdir}/src/main.c				\
@@ -560,6 +687,131 @@ ${top_srcdir}/instr/TXS_def.h			\
 ${top_srcdir}/instr/TYA.c				\
 ${top_srcdir}/instr/TYA_def.h
 
+instruction_verify_SOURCES = \
+${top_srcdir}/src/opcode_verify.c			\
+${top_srcdir}/src/bus_verify.c				\
+${top_srcdir}/include/regs.h				\
+${top_srcdir}/include/instruction.h			\
+${top_srcdir}/src/instruction.c				\
+${top_srcdir}/include/address_mode.h		\
+${top_srcdir}/instr/ADC.c				\
+${top_srcdir}/instr/ADC_def.h			\
+${top_srcdir}/instr/AND.c				\
+${top_srcdir}/instr/AND_def.h			\
+${top_srcdir}/instr/ASL.c				\
+${top_srcdir}/instr/ASL_def.h			\
+${top_srcdir}/instr/BCC.c				\
+${top_srcdir}/instr/BCC_def.h			\
+${top_srcdir}/instr/BCS.c				\
+${top_srcdir}/instr/BCS_def.h			\
+${top_srcdir}/instr/BEQ.c				\
+${top_srcdir}/instr/BEQ_def.h			\
+${top_srcdir}/instr/BIT.c				\
+${top_srcdir}/instr/BIT_def.h			\
+${top_srcdir}/instr/BMI.c				\
+${top_srcdir}/instr/BMI_def.h			\
+${top_srcdir}/instr/BNE.c				\
+${top_srcdir}/instr/BNE_def.h			\
+${top_srcdir}/instr/BPL.c				\
+${top_srcdir}/instr/BPL_def.h			\
+${top_srcdir}/instr/BRK.c				\
+${top_srcdir}/instr/BRK_def.h			\
+${top_srcdir}/instr/BVC.c				\
+${top_srcdir}/instr/BVC_def.h			\
+${top_srcdir}/instr/BVS.c				\
+${top_srcdir}/instr/BVS_def.h			\
+${top_srcdir}/instr/CLC.c				\
+${top_srcdir}/instr/CLC_def.h			\
+${top_srcdir}/instr/CLD.c				\
+${top_srcdir}/instr/CLD_def.h			\
+${top_srcdir}/instr/CLI.c				\
+${top_srcdir}/instr/CLI_def.h			\
+${top_srcdir}/instr/CLV.c				\
+${top_srcdir}/instr/CLV_def.h			\
+${top_srcdir}/instr/CMP.c				\
+${top_srcdir}/instr/CMP_def.h			\
+${top_srcdir}/instr/CPX.c				\
+${top_srcdir}/instr/CPX_def.h			\
+${top_srcdir}/instr/CPY.c				\
+${top_srcdir}/instr/CPY_def.h			\
+${top_srcdir}/instr/DCP.c				\
+${top_srcdir}/instr/DCP_def.h			\
+${top_srcdir}/instr/DEC.c				\
+${top_srcdir}/instr/DEC_def.h			\
+${top_srcdir}/instr/DEX.c				\
+${top_srcdir}/instr/DEX_def.h			\
+${top_srcdir}/instr/DEY.c				\
+${top_srcdir}/instr/DEY_def.h			\
+${top_srcdir}/instr/EOR.c				\
+${top_srcdir}/instr/EOR_def.h			\
+${top_srcdir}/instr/INC.c				\
+${top_srcdir}/instr/INC_def.h			\
+${top_srcdir}/instr/INX.c				\
+${top_srcdir}/instr/INX_def.h			\
+${top_srcdir}/instr/INY.c				\
+${top_srcdir}/instr/INY_def.h			\
+${top_srcdir}/instr/JMP.c				\
+${top_srcdir}/instr/JMP_def.h			\
+${top_srcdir}/instr/JSR.c				\
+${top_srcdir}/instr/JSR_def.h			\
+${top_srcdir}/instr/LDA.c				\
+${top_srcdir}/instr/LDA_def.h			\
+${top_srcdir}/instr/LDX.c				\
+${top_srcdir}/instr/LDX_def.h			\
+${top_srcdir}/instr/LDY.c				\
+${top_srcdir}/instr/LDY_def.h			\
+${top_srcdir}/instr/LSR.c				\
+${top_srcdir}/instr/LSR_def.h			\
+${top_srcdir}/instr/NOP.c				\
+${top_srcdir}/instr/NOP_def.h			\
+${top_srcdir}/instr/ORA.c				\
+${top_srcdir}/instr/ORA_def.h			\
+${top_srcdir}/instr/PHA.c				\
+${top_srcdir}/instr/PHA_def.h			\
+${top_srcdir}/instr/PHP.c				\
+${top_srcdir}/instr/PHP_def.h			\
+${top_srcdir}/instr/PLA.c				\
+${top_srcdir}/instr/PLA_def.h			\
+${top_srcdir}/instr/PLP.c				\
+${top_srcdir}/instr/PLP_def.h			\
+${top_srcdir}/instr/ROL.c				\
+${top_srcdir}/instr/ROL_def.h			\
+${top_srcdir}/instr/ROR.c				\
+${top_srcdir}/instr/ROR_def.h			\
+${top_srcdir}/instr/RTI.c				\
+${top_srcdir}/instr/RTI_def.h			\
+${top_srcdir}/instr/RTS.c				\
+${top_srcdir}/instr/RTS_def.h			\
+${top_srcdir}/instr/SBC.c				\
+${top_srcdir}/instr/SBC_def.h			\
+${top_srcdir}/instr/SEC.c				\
+${top_srcdir}/instr/SEC_def.h			\
+${top_srcdir}/instr/SED.c				\
+${top_srcdir}/instr/SED_def.h			\
+${top_srcdir}/instr/SEI.c				\
+${top_srcdir}/instr/SEI_def.h			\
+${top_srcdir}/instr/SHY.c				\
+${top_srcdir}/instr/SHY_def.h			\
+${top_srcdir}/instr/STA.c				\
+${top_srcdir}/instr/STA_def.h			\
+${top_srcdir}/instr/STX.c				\
+${top_srcdir}/instr/STX_def.h			\
+${top_srcdir}/instr/STY.c				\
+${top_srcdir}/instr/STY_def.h			\
+${top_srcdir}/instr/TAX.c				\
+${top_srcdir}/instr/TAX_def.h			\
+${top_srcdir}/instr/TAY.c				\
+${top_srcdir}/instr/TAY_def.h			\
+${top_srcdir}/instr/TSX.c				\
+${top_srcdir}/instr/TSX_def.h			\
+${top_srcdir}/instr/TXA.c				\
+${top_srcdir}/instr/TXA_def.h			\
+${top_srcdir}/instr/TXS.c				\
+${top_srcdir}/instr/TXS_def.h			\
+${top_srcdir}/instr/TYA.c				\
+${top_srcdir}/instr/TYA_def.h
+
+instruction_verify_LDADD = -lcjson
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -866,6 +1118,193 @@ $(top_builddir)/instr/c2_4p-TYA.$(OBJEXT):  \
 c2_4p$(EXEEXT): $(c2_4p_OBJECTS) $(c2_4p_DEPENDENCIES) $(EXTRA_c2_4p_DEPENDENCIES) 
 	@rm -f c2_4p$(EXEEXT)
 	$(AM_V_CCLD)$(c2_4p_LINK) $(c2_4p_OBJECTS) $(c2_4p_LDADD) $(LIBS)
+$(top_builddir)/src/instruction_verify-opcode_verify.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/instruction_verify-bus_verify.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/src/instruction_verify-instruction.$(OBJEXT):  \
+	$(top_builddir)/src/$(am__dirstamp) \
+	$(top_builddir)/src/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-ADC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-AND.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-ASL.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BCC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BCS.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BEQ.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BIT.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BMI.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BNE.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BPL.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BRK.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BVC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-BVS.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CLC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CLD.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CLI.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CLV.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CMP.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CPX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-CPY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-DCP.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-DEC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-DEX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-DEY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-EOR.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-INC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-INX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-INY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-JMP.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-JSR.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-LDA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-LDX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-LDY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-LSR.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-NOP.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-ORA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-PHA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-PHP.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-PLA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-PLP.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-ROL.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-ROR.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-RTI.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-RTS.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-SBC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-SEC.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-SED.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-SEI.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-SHY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-STA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-STX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-STY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-TAX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-TAY.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-TSX.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-TXA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-TXS.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+$(top_builddir)/instr/instruction_verify-TYA.$(OBJEXT):  \
+	$(top_builddir)/instr/$(am__dirstamp) \
+	$(top_builddir)/instr/$(DEPDIR)/$(am__dirstamp)
+
+instruction_verify$(EXEEXT): $(instruction_verify_OBJECTS) $(instruction_verify_DEPENDENCIES) $(EXTRA_instruction_verify_DEPENDENCIES) 
+	@rm -f instruction_verify$(EXEEXT)
+	$(AM_V_CCLD)$(instruction_verify_LINK) $(instruction_verify_OBJECTS) $(instruction_verify_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -933,6 +1372,64 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/c2_4p-TXA.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/c2_4p-TXS.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/c2_4p-TYA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/c2_4p-bus.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/c2_4p-debug_output.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/c2_4p-hw_c2-4p.Po@am__quote@ # am--include-marker
@@ -940,6 +1437,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/c2_4p-keydecode.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/c2_4p-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/c2_4p-shmem.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@$(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -1873,6 +2373,860 @@ $(top_builddir)/instr/c2_4p-TYA.obj: $(top_builddir)/instr/TYA.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(c2_4p_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/c2_4p-TYA.obj `if test -f '$(top_builddir)/instr/TYA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TYA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TYA.c'; fi`
 
+$(top_builddir)/src/instruction_verify-opcode_verify.o: $(top_builddir)/src/opcode_verify.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/src/instruction_verify-opcode_verify.o -MD -MP -MF $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Tpo -c -o $(top_builddir)/src/instruction_verify-opcode_verify.o `test -f '$(top_builddir)/src/opcode_verify.c' || echo '$(srcdir)/'`$(top_builddir)/src/opcode_verify.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Tpo $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/src/opcode_verify.c' object='$(top_builddir)/src/instruction_verify-opcode_verify.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/src/instruction_verify-opcode_verify.o `test -f '$(top_builddir)/src/opcode_verify.c' || echo '$(srcdir)/'`$(top_builddir)/src/opcode_verify.c
+
+$(top_builddir)/src/instruction_verify-opcode_verify.obj: $(top_builddir)/src/opcode_verify.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/src/instruction_verify-opcode_verify.obj -MD -MP -MF $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Tpo -c -o $(top_builddir)/src/instruction_verify-opcode_verify.obj `if test -f '$(top_builddir)/src/opcode_verify.c'; then $(CYGPATH_W) '$(top_builddir)/src/opcode_verify.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/src/opcode_verify.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Tpo $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/src/opcode_verify.c' object='$(top_builddir)/src/instruction_verify-opcode_verify.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/src/instruction_verify-opcode_verify.obj `if test -f '$(top_builddir)/src/opcode_verify.c'; then $(CYGPATH_W) '$(top_builddir)/src/opcode_verify.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/src/opcode_verify.c'; fi`
+
+$(top_builddir)/src/instruction_verify-bus_verify.o: $(top_builddir)/src/bus_verify.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/src/instruction_verify-bus_verify.o -MD -MP -MF $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Tpo -c -o $(top_builddir)/src/instruction_verify-bus_verify.o `test -f '$(top_builddir)/src/bus_verify.c' || echo '$(srcdir)/'`$(top_builddir)/src/bus_verify.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Tpo $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/src/bus_verify.c' object='$(top_builddir)/src/instruction_verify-bus_verify.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/src/instruction_verify-bus_verify.o `test -f '$(top_builddir)/src/bus_verify.c' || echo '$(srcdir)/'`$(top_builddir)/src/bus_verify.c
+
+$(top_builddir)/src/instruction_verify-bus_verify.obj: $(top_builddir)/src/bus_verify.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/src/instruction_verify-bus_verify.obj -MD -MP -MF $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Tpo -c -o $(top_builddir)/src/instruction_verify-bus_verify.obj `if test -f '$(top_builddir)/src/bus_verify.c'; then $(CYGPATH_W) '$(top_builddir)/src/bus_verify.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/src/bus_verify.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Tpo $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/src/bus_verify.c' object='$(top_builddir)/src/instruction_verify-bus_verify.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/src/instruction_verify-bus_verify.obj `if test -f '$(top_builddir)/src/bus_verify.c'; then $(CYGPATH_W) '$(top_builddir)/src/bus_verify.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/src/bus_verify.c'; fi`
+
+$(top_builddir)/src/instruction_verify-instruction.o: $(top_builddir)/src/instruction.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/src/instruction_verify-instruction.o -MD -MP -MF $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Tpo -c -o $(top_builddir)/src/instruction_verify-instruction.o `test -f '$(top_builddir)/src/instruction.c' || echo '$(srcdir)/'`$(top_builddir)/src/instruction.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Tpo $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/src/instruction.c' object='$(top_builddir)/src/instruction_verify-instruction.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/src/instruction_verify-instruction.o `test -f '$(top_builddir)/src/instruction.c' || echo '$(srcdir)/'`$(top_builddir)/src/instruction.c
+
+$(top_builddir)/src/instruction_verify-instruction.obj: $(top_builddir)/src/instruction.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/src/instruction_verify-instruction.obj -MD -MP -MF $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Tpo -c -o $(top_builddir)/src/instruction_verify-instruction.obj `if test -f '$(top_builddir)/src/instruction.c'; then $(CYGPATH_W) '$(top_builddir)/src/instruction.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/src/instruction.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Tpo $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/src/instruction.c' object='$(top_builddir)/src/instruction_verify-instruction.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/src/instruction_verify-instruction.obj `if test -f '$(top_builddir)/src/instruction.c'; then $(CYGPATH_W) '$(top_builddir)/src/instruction.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/src/instruction.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-ADC.o: $(top_builddir)/instr/ADC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ADC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Tpo -c -o $(top_builddir)/instr/instruction_verify-ADC.o `test -f '$(top_builddir)/instr/ADC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ADC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ADC.c' object='$(top_builddir)/instr/instruction_verify-ADC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ADC.o `test -f '$(top_builddir)/instr/ADC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ADC.c
+
+$(top_builddir)/instr/instruction_verify-ADC.obj: $(top_builddir)/instr/ADC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ADC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Tpo -c -o $(top_builddir)/instr/instruction_verify-ADC.obj `if test -f '$(top_builddir)/instr/ADC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ADC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ADC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ADC.c' object='$(top_builddir)/instr/instruction_verify-ADC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ADC.obj `if test -f '$(top_builddir)/instr/ADC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ADC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ADC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-AND.o: $(top_builddir)/instr/AND.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-AND.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Tpo -c -o $(top_builddir)/instr/instruction_verify-AND.o `test -f '$(top_builddir)/instr/AND.c' || echo '$(srcdir)/'`$(top_builddir)/instr/AND.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/AND.c' object='$(top_builddir)/instr/instruction_verify-AND.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-AND.o `test -f '$(top_builddir)/instr/AND.c' || echo '$(srcdir)/'`$(top_builddir)/instr/AND.c
+
+$(top_builddir)/instr/instruction_verify-AND.obj: $(top_builddir)/instr/AND.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-AND.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Tpo -c -o $(top_builddir)/instr/instruction_verify-AND.obj `if test -f '$(top_builddir)/instr/AND.c'; then $(CYGPATH_W) '$(top_builddir)/instr/AND.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/AND.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/AND.c' object='$(top_builddir)/instr/instruction_verify-AND.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-AND.obj `if test -f '$(top_builddir)/instr/AND.c'; then $(CYGPATH_W) '$(top_builddir)/instr/AND.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/AND.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-ASL.o: $(top_builddir)/instr/ASL.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ASL.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Tpo -c -o $(top_builddir)/instr/instruction_verify-ASL.o `test -f '$(top_builddir)/instr/ASL.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ASL.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ASL.c' object='$(top_builddir)/instr/instruction_verify-ASL.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ASL.o `test -f '$(top_builddir)/instr/ASL.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ASL.c
+
+$(top_builddir)/instr/instruction_verify-ASL.obj: $(top_builddir)/instr/ASL.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ASL.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Tpo -c -o $(top_builddir)/instr/instruction_verify-ASL.obj `if test -f '$(top_builddir)/instr/ASL.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ASL.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ASL.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ASL.c' object='$(top_builddir)/instr/instruction_verify-ASL.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ASL.obj `if test -f '$(top_builddir)/instr/ASL.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ASL.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ASL.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BCC.o: $(top_builddir)/instr/BCC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BCC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Tpo -c -o $(top_builddir)/instr/instruction_verify-BCC.o `test -f '$(top_builddir)/instr/BCC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BCC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BCC.c' object='$(top_builddir)/instr/instruction_verify-BCC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BCC.o `test -f '$(top_builddir)/instr/BCC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BCC.c
+
+$(top_builddir)/instr/instruction_verify-BCC.obj: $(top_builddir)/instr/BCC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BCC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Tpo -c -o $(top_builddir)/instr/instruction_verify-BCC.obj `if test -f '$(top_builddir)/instr/BCC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BCC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BCC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BCC.c' object='$(top_builddir)/instr/instruction_verify-BCC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BCC.obj `if test -f '$(top_builddir)/instr/BCC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BCC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BCC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BCS.o: $(top_builddir)/instr/BCS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BCS.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Tpo -c -o $(top_builddir)/instr/instruction_verify-BCS.o `test -f '$(top_builddir)/instr/BCS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BCS.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BCS.c' object='$(top_builddir)/instr/instruction_verify-BCS.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BCS.o `test -f '$(top_builddir)/instr/BCS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BCS.c
+
+$(top_builddir)/instr/instruction_verify-BCS.obj: $(top_builddir)/instr/BCS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BCS.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Tpo -c -o $(top_builddir)/instr/instruction_verify-BCS.obj `if test -f '$(top_builddir)/instr/BCS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BCS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BCS.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BCS.c' object='$(top_builddir)/instr/instruction_verify-BCS.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BCS.obj `if test -f '$(top_builddir)/instr/BCS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BCS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BCS.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BEQ.o: $(top_builddir)/instr/BEQ.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BEQ.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Tpo -c -o $(top_builddir)/instr/instruction_verify-BEQ.o `test -f '$(top_builddir)/instr/BEQ.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BEQ.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BEQ.c' object='$(top_builddir)/instr/instruction_verify-BEQ.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BEQ.o `test -f '$(top_builddir)/instr/BEQ.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BEQ.c
+
+$(top_builddir)/instr/instruction_verify-BEQ.obj: $(top_builddir)/instr/BEQ.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BEQ.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Tpo -c -o $(top_builddir)/instr/instruction_verify-BEQ.obj `if test -f '$(top_builddir)/instr/BEQ.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BEQ.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BEQ.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BEQ.c' object='$(top_builddir)/instr/instruction_verify-BEQ.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BEQ.obj `if test -f '$(top_builddir)/instr/BEQ.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BEQ.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BEQ.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BIT.o: $(top_builddir)/instr/BIT.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BIT.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Tpo -c -o $(top_builddir)/instr/instruction_verify-BIT.o `test -f '$(top_builddir)/instr/BIT.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BIT.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BIT.c' object='$(top_builddir)/instr/instruction_verify-BIT.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BIT.o `test -f '$(top_builddir)/instr/BIT.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BIT.c
+
+$(top_builddir)/instr/instruction_verify-BIT.obj: $(top_builddir)/instr/BIT.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BIT.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Tpo -c -o $(top_builddir)/instr/instruction_verify-BIT.obj `if test -f '$(top_builddir)/instr/BIT.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BIT.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BIT.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BIT.c' object='$(top_builddir)/instr/instruction_verify-BIT.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BIT.obj `if test -f '$(top_builddir)/instr/BIT.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BIT.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BIT.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BMI.o: $(top_builddir)/instr/BMI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BMI.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Tpo -c -o $(top_builddir)/instr/instruction_verify-BMI.o `test -f '$(top_builddir)/instr/BMI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BMI.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BMI.c' object='$(top_builddir)/instr/instruction_verify-BMI.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BMI.o `test -f '$(top_builddir)/instr/BMI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BMI.c
+
+$(top_builddir)/instr/instruction_verify-BMI.obj: $(top_builddir)/instr/BMI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BMI.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Tpo -c -o $(top_builddir)/instr/instruction_verify-BMI.obj `if test -f '$(top_builddir)/instr/BMI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BMI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BMI.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BMI.c' object='$(top_builddir)/instr/instruction_verify-BMI.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BMI.obj `if test -f '$(top_builddir)/instr/BMI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BMI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BMI.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BNE.o: $(top_builddir)/instr/BNE.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BNE.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Tpo -c -o $(top_builddir)/instr/instruction_verify-BNE.o `test -f '$(top_builddir)/instr/BNE.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BNE.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BNE.c' object='$(top_builddir)/instr/instruction_verify-BNE.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BNE.o `test -f '$(top_builddir)/instr/BNE.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BNE.c
+
+$(top_builddir)/instr/instruction_verify-BNE.obj: $(top_builddir)/instr/BNE.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BNE.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Tpo -c -o $(top_builddir)/instr/instruction_verify-BNE.obj `if test -f '$(top_builddir)/instr/BNE.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BNE.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BNE.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BNE.c' object='$(top_builddir)/instr/instruction_verify-BNE.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BNE.obj `if test -f '$(top_builddir)/instr/BNE.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BNE.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BNE.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BPL.o: $(top_builddir)/instr/BPL.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BPL.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Tpo -c -o $(top_builddir)/instr/instruction_verify-BPL.o `test -f '$(top_builddir)/instr/BPL.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BPL.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BPL.c' object='$(top_builddir)/instr/instruction_verify-BPL.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BPL.o `test -f '$(top_builddir)/instr/BPL.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BPL.c
+
+$(top_builddir)/instr/instruction_verify-BPL.obj: $(top_builddir)/instr/BPL.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BPL.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Tpo -c -o $(top_builddir)/instr/instruction_verify-BPL.obj `if test -f '$(top_builddir)/instr/BPL.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BPL.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BPL.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BPL.c' object='$(top_builddir)/instr/instruction_verify-BPL.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BPL.obj `if test -f '$(top_builddir)/instr/BPL.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BPL.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BPL.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BRK.o: $(top_builddir)/instr/BRK.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BRK.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Tpo -c -o $(top_builddir)/instr/instruction_verify-BRK.o `test -f '$(top_builddir)/instr/BRK.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BRK.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BRK.c' object='$(top_builddir)/instr/instruction_verify-BRK.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BRK.o `test -f '$(top_builddir)/instr/BRK.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BRK.c
+
+$(top_builddir)/instr/instruction_verify-BRK.obj: $(top_builddir)/instr/BRK.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BRK.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Tpo -c -o $(top_builddir)/instr/instruction_verify-BRK.obj `if test -f '$(top_builddir)/instr/BRK.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BRK.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BRK.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BRK.c' object='$(top_builddir)/instr/instruction_verify-BRK.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BRK.obj `if test -f '$(top_builddir)/instr/BRK.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BRK.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BRK.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BVC.o: $(top_builddir)/instr/BVC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BVC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Tpo -c -o $(top_builddir)/instr/instruction_verify-BVC.o `test -f '$(top_builddir)/instr/BVC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BVC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BVC.c' object='$(top_builddir)/instr/instruction_verify-BVC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BVC.o `test -f '$(top_builddir)/instr/BVC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BVC.c
+
+$(top_builddir)/instr/instruction_verify-BVC.obj: $(top_builddir)/instr/BVC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BVC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Tpo -c -o $(top_builddir)/instr/instruction_verify-BVC.obj `if test -f '$(top_builddir)/instr/BVC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BVC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BVC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BVC.c' object='$(top_builddir)/instr/instruction_verify-BVC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BVC.obj `if test -f '$(top_builddir)/instr/BVC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BVC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BVC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-BVS.o: $(top_builddir)/instr/BVS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BVS.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Tpo -c -o $(top_builddir)/instr/instruction_verify-BVS.o `test -f '$(top_builddir)/instr/BVS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BVS.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BVS.c' object='$(top_builddir)/instr/instruction_verify-BVS.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BVS.o `test -f '$(top_builddir)/instr/BVS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/BVS.c
+
+$(top_builddir)/instr/instruction_verify-BVS.obj: $(top_builddir)/instr/BVS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-BVS.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Tpo -c -o $(top_builddir)/instr/instruction_verify-BVS.obj `if test -f '$(top_builddir)/instr/BVS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BVS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BVS.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/BVS.c' object='$(top_builddir)/instr/instruction_verify-BVS.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-BVS.obj `if test -f '$(top_builddir)/instr/BVS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/BVS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/BVS.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CLC.o: $(top_builddir)/instr/CLC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLC.o `test -f '$(top_builddir)/instr/CLC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLC.c' object='$(top_builddir)/instr/instruction_verify-CLC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLC.o `test -f '$(top_builddir)/instr/CLC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLC.c
+
+$(top_builddir)/instr/instruction_verify-CLC.obj: $(top_builddir)/instr/CLC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLC.obj `if test -f '$(top_builddir)/instr/CLC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLC.c' object='$(top_builddir)/instr/instruction_verify-CLC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLC.obj `if test -f '$(top_builddir)/instr/CLC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CLD.o: $(top_builddir)/instr/CLD.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLD.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLD.o `test -f '$(top_builddir)/instr/CLD.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLD.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLD.c' object='$(top_builddir)/instr/instruction_verify-CLD.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLD.o `test -f '$(top_builddir)/instr/CLD.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLD.c
+
+$(top_builddir)/instr/instruction_verify-CLD.obj: $(top_builddir)/instr/CLD.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLD.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLD.obj `if test -f '$(top_builddir)/instr/CLD.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLD.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLD.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLD.c' object='$(top_builddir)/instr/instruction_verify-CLD.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLD.obj `if test -f '$(top_builddir)/instr/CLD.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLD.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLD.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CLI.o: $(top_builddir)/instr/CLI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLI.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLI.o `test -f '$(top_builddir)/instr/CLI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLI.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLI.c' object='$(top_builddir)/instr/instruction_verify-CLI.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLI.o `test -f '$(top_builddir)/instr/CLI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLI.c
+
+$(top_builddir)/instr/instruction_verify-CLI.obj: $(top_builddir)/instr/CLI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLI.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLI.obj `if test -f '$(top_builddir)/instr/CLI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLI.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLI.c' object='$(top_builddir)/instr/instruction_verify-CLI.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLI.obj `if test -f '$(top_builddir)/instr/CLI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLI.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CLV.o: $(top_builddir)/instr/CLV.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLV.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLV.o `test -f '$(top_builddir)/instr/CLV.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLV.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLV.c' object='$(top_builddir)/instr/instruction_verify-CLV.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLV.o `test -f '$(top_builddir)/instr/CLV.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CLV.c
+
+$(top_builddir)/instr/instruction_verify-CLV.obj: $(top_builddir)/instr/CLV.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CLV.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Tpo -c -o $(top_builddir)/instr/instruction_verify-CLV.obj `if test -f '$(top_builddir)/instr/CLV.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLV.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLV.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CLV.c' object='$(top_builddir)/instr/instruction_verify-CLV.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CLV.obj `if test -f '$(top_builddir)/instr/CLV.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CLV.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CLV.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CMP.o: $(top_builddir)/instr/CMP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CMP.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Tpo -c -o $(top_builddir)/instr/instruction_verify-CMP.o `test -f '$(top_builddir)/instr/CMP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CMP.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CMP.c' object='$(top_builddir)/instr/instruction_verify-CMP.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CMP.o `test -f '$(top_builddir)/instr/CMP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CMP.c
+
+$(top_builddir)/instr/instruction_verify-CMP.obj: $(top_builddir)/instr/CMP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CMP.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Tpo -c -o $(top_builddir)/instr/instruction_verify-CMP.obj `if test -f '$(top_builddir)/instr/CMP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CMP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CMP.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CMP.c' object='$(top_builddir)/instr/instruction_verify-CMP.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CMP.obj `if test -f '$(top_builddir)/instr/CMP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CMP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CMP.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CPX.o: $(top_builddir)/instr/CPX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CPX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Tpo -c -o $(top_builddir)/instr/instruction_verify-CPX.o `test -f '$(top_builddir)/instr/CPX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CPX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CPX.c' object='$(top_builddir)/instr/instruction_verify-CPX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CPX.o `test -f '$(top_builddir)/instr/CPX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CPX.c
+
+$(top_builddir)/instr/instruction_verify-CPX.obj: $(top_builddir)/instr/CPX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CPX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Tpo -c -o $(top_builddir)/instr/instruction_verify-CPX.obj `if test -f '$(top_builddir)/instr/CPX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CPX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CPX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CPX.c' object='$(top_builddir)/instr/instruction_verify-CPX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CPX.obj `if test -f '$(top_builddir)/instr/CPX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CPX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CPX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-CPY.o: $(top_builddir)/instr/CPY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CPY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Tpo -c -o $(top_builddir)/instr/instruction_verify-CPY.o `test -f '$(top_builddir)/instr/CPY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CPY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CPY.c' object='$(top_builddir)/instr/instruction_verify-CPY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CPY.o `test -f '$(top_builddir)/instr/CPY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/CPY.c
+
+$(top_builddir)/instr/instruction_verify-CPY.obj: $(top_builddir)/instr/CPY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-CPY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Tpo -c -o $(top_builddir)/instr/instruction_verify-CPY.obj `if test -f '$(top_builddir)/instr/CPY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CPY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CPY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/CPY.c' object='$(top_builddir)/instr/instruction_verify-CPY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-CPY.obj `if test -f '$(top_builddir)/instr/CPY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/CPY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/CPY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-DCP.o: $(top_builddir)/instr/DCP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DCP.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Tpo -c -o $(top_builddir)/instr/instruction_verify-DCP.o `test -f '$(top_builddir)/instr/DCP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DCP.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DCP.c' object='$(top_builddir)/instr/instruction_verify-DCP.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DCP.o `test -f '$(top_builddir)/instr/DCP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DCP.c
+
+$(top_builddir)/instr/instruction_verify-DCP.obj: $(top_builddir)/instr/DCP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DCP.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Tpo -c -o $(top_builddir)/instr/instruction_verify-DCP.obj `if test -f '$(top_builddir)/instr/DCP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DCP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DCP.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DCP.c' object='$(top_builddir)/instr/instruction_verify-DCP.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DCP.obj `if test -f '$(top_builddir)/instr/DCP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DCP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DCP.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-DEC.o: $(top_builddir)/instr/DEC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DEC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Tpo -c -o $(top_builddir)/instr/instruction_verify-DEC.o `test -f '$(top_builddir)/instr/DEC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DEC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DEC.c' object='$(top_builddir)/instr/instruction_verify-DEC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DEC.o `test -f '$(top_builddir)/instr/DEC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DEC.c
+
+$(top_builddir)/instr/instruction_verify-DEC.obj: $(top_builddir)/instr/DEC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DEC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Tpo -c -o $(top_builddir)/instr/instruction_verify-DEC.obj `if test -f '$(top_builddir)/instr/DEC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DEC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DEC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DEC.c' object='$(top_builddir)/instr/instruction_verify-DEC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DEC.obj `if test -f '$(top_builddir)/instr/DEC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DEC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DEC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-DEX.o: $(top_builddir)/instr/DEX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DEX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Tpo -c -o $(top_builddir)/instr/instruction_verify-DEX.o `test -f '$(top_builddir)/instr/DEX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DEX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DEX.c' object='$(top_builddir)/instr/instruction_verify-DEX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DEX.o `test -f '$(top_builddir)/instr/DEX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DEX.c
+
+$(top_builddir)/instr/instruction_verify-DEX.obj: $(top_builddir)/instr/DEX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DEX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Tpo -c -o $(top_builddir)/instr/instruction_verify-DEX.obj `if test -f '$(top_builddir)/instr/DEX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DEX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DEX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DEX.c' object='$(top_builddir)/instr/instruction_verify-DEX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DEX.obj `if test -f '$(top_builddir)/instr/DEX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DEX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DEX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-DEY.o: $(top_builddir)/instr/DEY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DEY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Tpo -c -o $(top_builddir)/instr/instruction_verify-DEY.o `test -f '$(top_builddir)/instr/DEY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DEY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DEY.c' object='$(top_builddir)/instr/instruction_verify-DEY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DEY.o `test -f '$(top_builddir)/instr/DEY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/DEY.c
+
+$(top_builddir)/instr/instruction_verify-DEY.obj: $(top_builddir)/instr/DEY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-DEY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Tpo -c -o $(top_builddir)/instr/instruction_verify-DEY.obj `if test -f '$(top_builddir)/instr/DEY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DEY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DEY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/DEY.c' object='$(top_builddir)/instr/instruction_verify-DEY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-DEY.obj `if test -f '$(top_builddir)/instr/DEY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/DEY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/DEY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-EOR.o: $(top_builddir)/instr/EOR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-EOR.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Tpo -c -o $(top_builddir)/instr/instruction_verify-EOR.o `test -f '$(top_builddir)/instr/EOR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/EOR.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/EOR.c' object='$(top_builddir)/instr/instruction_verify-EOR.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-EOR.o `test -f '$(top_builddir)/instr/EOR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/EOR.c
+
+$(top_builddir)/instr/instruction_verify-EOR.obj: $(top_builddir)/instr/EOR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-EOR.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Tpo -c -o $(top_builddir)/instr/instruction_verify-EOR.obj `if test -f '$(top_builddir)/instr/EOR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/EOR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/EOR.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/EOR.c' object='$(top_builddir)/instr/instruction_verify-EOR.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-EOR.obj `if test -f '$(top_builddir)/instr/EOR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/EOR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/EOR.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-INC.o: $(top_builddir)/instr/INC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-INC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Tpo -c -o $(top_builddir)/instr/instruction_verify-INC.o `test -f '$(top_builddir)/instr/INC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/INC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/INC.c' object='$(top_builddir)/instr/instruction_verify-INC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-INC.o `test -f '$(top_builddir)/instr/INC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/INC.c
+
+$(top_builddir)/instr/instruction_verify-INC.obj: $(top_builddir)/instr/INC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-INC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Tpo -c -o $(top_builddir)/instr/instruction_verify-INC.obj `if test -f '$(top_builddir)/instr/INC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/INC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/INC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/INC.c' object='$(top_builddir)/instr/instruction_verify-INC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-INC.obj `if test -f '$(top_builddir)/instr/INC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/INC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/INC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-INX.o: $(top_builddir)/instr/INX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-INX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Tpo -c -o $(top_builddir)/instr/instruction_verify-INX.o `test -f '$(top_builddir)/instr/INX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/INX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/INX.c' object='$(top_builddir)/instr/instruction_verify-INX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-INX.o `test -f '$(top_builddir)/instr/INX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/INX.c
+
+$(top_builddir)/instr/instruction_verify-INX.obj: $(top_builddir)/instr/INX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-INX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Tpo -c -o $(top_builddir)/instr/instruction_verify-INX.obj `if test -f '$(top_builddir)/instr/INX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/INX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/INX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/INX.c' object='$(top_builddir)/instr/instruction_verify-INX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-INX.obj `if test -f '$(top_builddir)/instr/INX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/INX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/INX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-INY.o: $(top_builddir)/instr/INY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-INY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Tpo -c -o $(top_builddir)/instr/instruction_verify-INY.o `test -f '$(top_builddir)/instr/INY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/INY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/INY.c' object='$(top_builddir)/instr/instruction_verify-INY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-INY.o `test -f '$(top_builddir)/instr/INY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/INY.c
+
+$(top_builddir)/instr/instruction_verify-INY.obj: $(top_builddir)/instr/INY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-INY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Tpo -c -o $(top_builddir)/instr/instruction_verify-INY.obj `if test -f '$(top_builddir)/instr/INY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/INY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/INY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/INY.c' object='$(top_builddir)/instr/instruction_verify-INY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-INY.obj `if test -f '$(top_builddir)/instr/INY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/INY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/INY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-JMP.o: $(top_builddir)/instr/JMP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-JMP.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Tpo -c -o $(top_builddir)/instr/instruction_verify-JMP.o `test -f '$(top_builddir)/instr/JMP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/JMP.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/JMP.c' object='$(top_builddir)/instr/instruction_verify-JMP.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-JMP.o `test -f '$(top_builddir)/instr/JMP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/JMP.c
+
+$(top_builddir)/instr/instruction_verify-JMP.obj: $(top_builddir)/instr/JMP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-JMP.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Tpo -c -o $(top_builddir)/instr/instruction_verify-JMP.obj `if test -f '$(top_builddir)/instr/JMP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/JMP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/JMP.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/JMP.c' object='$(top_builddir)/instr/instruction_verify-JMP.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-JMP.obj `if test -f '$(top_builddir)/instr/JMP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/JMP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/JMP.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-JSR.o: $(top_builddir)/instr/JSR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-JSR.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Tpo -c -o $(top_builddir)/instr/instruction_verify-JSR.o `test -f '$(top_builddir)/instr/JSR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/JSR.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/JSR.c' object='$(top_builddir)/instr/instruction_verify-JSR.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-JSR.o `test -f '$(top_builddir)/instr/JSR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/JSR.c
+
+$(top_builddir)/instr/instruction_verify-JSR.obj: $(top_builddir)/instr/JSR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-JSR.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Tpo -c -o $(top_builddir)/instr/instruction_verify-JSR.obj `if test -f '$(top_builddir)/instr/JSR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/JSR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/JSR.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/JSR.c' object='$(top_builddir)/instr/instruction_verify-JSR.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-JSR.obj `if test -f '$(top_builddir)/instr/JSR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/JSR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/JSR.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-LDA.o: $(top_builddir)/instr/LDA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LDA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Tpo -c -o $(top_builddir)/instr/instruction_verify-LDA.o `test -f '$(top_builddir)/instr/LDA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LDA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LDA.c' object='$(top_builddir)/instr/instruction_verify-LDA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LDA.o `test -f '$(top_builddir)/instr/LDA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LDA.c
+
+$(top_builddir)/instr/instruction_verify-LDA.obj: $(top_builddir)/instr/LDA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LDA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Tpo -c -o $(top_builddir)/instr/instruction_verify-LDA.obj `if test -f '$(top_builddir)/instr/LDA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LDA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LDA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LDA.c' object='$(top_builddir)/instr/instruction_verify-LDA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LDA.obj `if test -f '$(top_builddir)/instr/LDA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LDA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LDA.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-LDX.o: $(top_builddir)/instr/LDX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LDX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Tpo -c -o $(top_builddir)/instr/instruction_verify-LDX.o `test -f '$(top_builddir)/instr/LDX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LDX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LDX.c' object='$(top_builddir)/instr/instruction_verify-LDX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LDX.o `test -f '$(top_builddir)/instr/LDX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LDX.c
+
+$(top_builddir)/instr/instruction_verify-LDX.obj: $(top_builddir)/instr/LDX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LDX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Tpo -c -o $(top_builddir)/instr/instruction_verify-LDX.obj `if test -f '$(top_builddir)/instr/LDX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LDX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LDX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LDX.c' object='$(top_builddir)/instr/instruction_verify-LDX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LDX.obj `if test -f '$(top_builddir)/instr/LDX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LDX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LDX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-LDY.o: $(top_builddir)/instr/LDY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LDY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Tpo -c -o $(top_builddir)/instr/instruction_verify-LDY.o `test -f '$(top_builddir)/instr/LDY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LDY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LDY.c' object='$(top_builddir)/instr/instruction_verify-LDY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LDY.o `test -f '$(top_builddir)/instr/LDY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LDY.c
+
+$(top_builddir)/instr/instruction_verify-LDY.obj: $(top_builddir)/instr/LDY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LDY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Tpo -c -o $(top_builddir)/instr/instruction_verify-LDY.obj `if test -f '$(top_builddir)/instr/LDY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LDY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LDY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LDY.c' object='$(top_builddir)/instr/instruction_verify-LDY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LDY.obj `if test -f '$(top_builddir)/instr/LDY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LDY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LDY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-LSR.o: $(top_builddir)/instr/LSR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LSR.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Tpo -c -o $(top_builddir)/instr/instruction_verify-LSR.o `test -f '$(top_builddir)/instr/LSR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LSR.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LSR.c' object='$(top_builddir)/instr/instruction_verify-LSR.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LSR.o `test -f '$(top_builddir)/instr/LSR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/LSR.c
+
+$(top_builddir)/instr/instruction_verify-LSR.obj: $(top_builddir)/instr/LSR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-LSR.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Tpo -c -o $(top_builddir)/instr/instruction_verify-LSR.obj `if test -f '$(top_builddir)/instr/LSR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LSR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LSR.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/LSR.c' object='$(top_builddir)/instr/instruction_verify-LSR.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-LSR.obj `if test -f '$(top_builddir)/instr/LSR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/LSR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/LSR.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-NOP.o: $(top_builddir)/instr/NOP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-NOP.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Tpo -c -o $(top_builddir)/instr/instruction_verify-NOP.o `test -f '$(top_builddir)/instr/NOP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/NOP.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/NOP.c' object='$(top_builddir)/instr/instruction_verify-NOP.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-NOP.o `test -f '$(top_builddir)/instr/NOP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/NOP.c
+
+$(top_builddir)/instr/instruction_verify-NOP.obj: $(top_builddir)/instr/NOP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-NOP.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Tpo -c -o $(top_builddir)/instr/instruction_verify-NOP.obj `if test -f '$(top_builddir)/instr/NOP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/NOP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/NOP.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/NOP.c' object='$(top_builddir)/instr/instruction_verify-NOP.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-NOP.obj `if test -f '$(top_builddir)/instr/NOP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/NOP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/NOP.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-ORA.o: $(top_builddir)/instr/ORA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ORA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Tpo -c -o $(top_builddir)/instr/instruction_verify-ORA.o `test -f '$(top_builddir)/instr/ORA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ORA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ORA.c' object='$(top_builddir)/instr/instruction_verify-ORA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ORA.o `test -f '$(top_builddir)/instr/ORA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ORA.c
+
+$(top_builddir)/instr/instruction_verify-ORA.obj: $(top_builddir)/instr/ORA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ORA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Tpo -c -o $(top_builddir)/instr/instruction_verify-ORA.obj `if test -f '$(top_builddir)/instr/ORA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ORA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ORA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ORA.c' object='$(top_builddir)/instr/instruction_verify-ORA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ORA.obj `if test -f '$(top_builddir)/instr/ORA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ORA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ORA.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-PHA.o: $(top_builddir)/instr/PHA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PHA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Tpo -c -o $(top_builddir)/instr/instruction_verify-PHA.o `test -f '$(top_builddir)/instr/PHA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PHA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PHA.c' object='$(top_builddir)/instr/instruction_verify-PHA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PHA.o `test -f '$(top_builddir)/instr/PHA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PHA.c
+
+$(top_builddir)/instr/instruction_verify-PHA.obj: $(top_builddir)/instr/PHA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PHA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Tpo -c -o $(top_builddir)/instr/instruction_verify-PHA.obj `if test -f '$(top_builddir)/instr/PHA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PHA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PHA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PHA.c' object='$(top_builddir)/instr/instruction_verify-PHA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PHA.obj `if test -f '$(top_builddir)/instr/PHA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PHA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PHA.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-PHP.o: $(top_builddir)/instr/PHP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PHP.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Tpo -c -o $(top_builddir)/instr/instruction_verify-PHP.o `test -f '$(top_builddir)/instr/PHP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PHP.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PHP.c' object='$(top_builddir)/instr/instruction_verify-PHP.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PHP.o `test -f '$(top_builddir)/instr/PHP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PHP.c
+
+$(top_builddir)/instr/instruction_verify-PHP.obj: $(top_builddir)/instr/PHP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PHP.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Tpo -c -o $(top_builddir)/instr/instruction_verify-PHP.obj `if test -f '$(top_builddir)/instr/PHP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PHP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PHP.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PHP.c' object='$(top_builddir)/instr/instruction_verify-PHP.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PHP.obj `if test -f '$(top_builddir)/instr/PHP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PHP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PHP.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-PLA.o: $(top_builddir)/instr/PLA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PLA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Tpo -c -o $(top_builddir)/instr/instruction_verify-PLA.o `test -f '$(top_builddir)/instr/PLA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PLA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PLA.c' object='$(top_builddir)/instr/instruction_verify-PLA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PLA.o `test -f '$(top_builddir)/instr/PLA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PLA.c
+
+$(top_builddir)/instr/instruction_verify-PLA.obj: $(top_builddir)/instr/PLA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PLA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Tpo -c -o $(top_builddir)/instr/instruction_verify-PLA.obj `if test -f '$(top_builddir)/instr/PLA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PLA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PLA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PLA.c' object='$(top_builddir)/instr/instruction_verify-PLA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PLA.obj `if test -f '$(top_builddir)/instr/PLA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PLA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PLA.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-PLP.o: $(top_builddir)/instr/PLP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PLP.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Tpo -c -o $(top_builddir)/instr/instruction_verify-PLP.o `test -f '$(top_builddir)/instr/PLP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PLP.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PLP.c' object='$(top_builddir)/instr/instruction_verify-PLP.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PLP.o `test -f '$(top_builddir)/instr/PLP.c' || echo '$(srcdir)/'`$(top_builddir)/instr/PLP.c
+
+$(top_builddir)/instr/instruction_verify-PLP.obj: $(top_builddir)/instr/PLP.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-PLP.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Tpo -c -o $(top_builddir)/instr/instruction_verify-PLP.obj `if test -f '$(top_builddir)/instr/PLP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PLP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PLP.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/PLP.c' object='$(top_builddir)/instr/instruction_verify-PLP.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-PLP.obj `if test -f '$(top_builddir)/instr/PLP.c'; then $(CYGPATH_W) '$(top_builddir)/instr/PLP.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/PLP.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-ROL.o: $(top_builddir)/instr/ROL.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ROL.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Tpo -c -o $(top_builddir)/instr/instruction_verify-ROL.o `test -f '$(top_builddir)/instr/ROL.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ROL.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ROL.c' object='$(top_builddir)/instr/instruction_verify-ROL.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ROL.o `test -f '$(top_builddir)/instr/ROL.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ROL.c
+
+$(top_builddir)/instr/instruction_verify-ROL.obj: $(top_builddir)/instr/ROL.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ROL.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Tpo -c -o $(top_builddir)/instr/instruction_verify-ROL.obj `if test -f '$(top_builddir)/instr/ROL.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ROL.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ROL.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ROL.c' object='$(top_builddir)/instr/instruction_verify-ROL.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ROL.obj `if test -f '$(top_builddir)/instr/ROL.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ROL.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ROL.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-ROR.o: $(top_builddir)/instr/ROR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ROR.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Tpo -c -o $(top_builddir)/instr/instruction_verify-ROR.o `test -f '$(top_builddir)/instr/ROR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ROR.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ROR.c' object='$(top_builddir)/instr/instruction_verify-ROR.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ROR.o `test -f '$(top_builddir)/instr/ROR.c' || echo '$(srcdir)/'`$(top_builddir)/instr/ROR.c
+
+$(top_builddir)/instr/instruction_verify-ROR.obj: $(top_builddir)/instr/ROR.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-ROR.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Tpo -c -o $(top_builddir)/instr/instruction_verify-ROR.obj `if test -f '$(top_builddir)/instr/ROR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ROR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ROR.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/ROR.c' object='$(top_builddir)/instr/instruction_verify-ROR.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-ROR.obj `if test -f '$(top_builddir)/instr/ROR.c'; then $(CYGPATH_W) '$(top_builddir)/instr/ROR.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/ROR.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-RTI.o: $(top_builddir)/instr/RTI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-RTI.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Tpo -c -o $(top_builddir)/instr/instruction_verify-RTI.o `test -f '$(top_builddir)/instr/RTI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/RTI.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/RTI.c' object='$(top_builddir)/instr/instruction_verify-RTI.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-RTI.o `test -f '$(top_builddir)/instr/RTI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/RTI.c
+
+$(top_builddir)/instr/instruction_verify-RTI.obj: $(top_builddir)/instr/RTI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-RTI.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Tpo -c -o $(top_builddir)/instr/instruction_verify-RTI.obj `if test -f '$(top_builddir)/instr/RTI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/RTI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/RTI.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/RTI.c' object='$(top_builddir)/instr/instruction_verify-RTI.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-RTI.obj `if test -f '$(top_builddir)/instr/RTI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/RTI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/RTI.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-RTS.o: $(top_builddir)/instr/RTS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-RTS.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Tpo -c -o $(top_builddir)/instr/instruction_verify-RTS.o `test -f '$(top_builddir)/instr/RTS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/RTS.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/RTS.c' object='$(top_builddir)/instr/instruction_verify-RTS.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-RTS.o `test -f '$(top_builddir)/instr/RTS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/RTS.c
+
+$(top_builddir)/instr/instruction_verify-RTS.obj: $(top_builddir)/instr/RTS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-RTS.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Tpo -c -o $(top_builddir)/instr/instruction_verify-RTS.obj `if test -f '$(top_builddir)/instr/RTS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/RTS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/RTS.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/RTS.c' object='$(top_builddir)/instr/instruction_verify-RTS.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-RTS.obj `if test -f '$(top_builddir)/instr/RTS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/RTS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/RTS.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-SBC.o: $(top_builddir)/instr/SBC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SBC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Tpo -c -o $(top_builddir)/instr/instruction_verify-SBC.o `test -f '$(top_builddir)/instr/SBC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SBC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SBC.c' object='$(top_builddir)/instr/instruction_verify-SBC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SBC.o `test -f '$(top_builddir)/instr/SBC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SBC.c
+
+$(top_builddir)/instr/instruction_verify-SBC.obj: $(top_builddir)/instr/SBC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SBC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Tpo -c -o $(top_builddir)/instr/instruction_verify-SBC.obj `if test -f '$(top_builddir)/instr/SBC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SBC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SBC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SBC.c' object='$(top_builddir)/instr/instruction_verify-SBC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SBC.obj `if test -f '$(top_builddir)/instr/SBC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SBC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SBC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-SEC.o: $(top_builddir)/instr/SEC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SEC.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Tpo -c -o $(top_builddir)/instr/instruction_verify-SEC.o `test -f '$(top_builddir)/instr/SEC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SEC.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SEC.c' object='$(top_builddir)/instr/instruction_verify-SEC.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SEC.o `test -f '$(top_builddir)/instr/SEC.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SEC.c
+
+$(top_builddir)/instr/instruction_verify-SEC.obj: $(top_builddir)/instr/SEC.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SEC.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Tpo -c -o $(top_builddir)/instr/instruction_verify-SEC.obj `if test -f '$(top_builddir)/instr/SEC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SEC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SEC.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SEC.c' object='$(top_builddir)/instr/instruction_verify-SEC.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SEC.obj `if test -f '$(top_builddir)/instr/SEC.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SEC.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SEC.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-SED.o: $(top_builddir)/instr/SED.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SED.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Tpo -c -o $(top_builddir)/instr/instruction_verify-SED.o `test -f '$(top_builddir)/instr/SED.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SED.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SED.c' object='$(top_builddir)/instr/instruction_verify-SED.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SED.o `test -f '$(top_builddir)/instr/SED.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SED.c
+
+$(top_builddir)/instr/instruction_verify-SED.obj: $(top_builddir)/instr/SED.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SED.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Tpo -c -o $(top_builddir)/instr/instruction_verify-SED.obj `if test -f '$(top_builddir)/instr/SED.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SED.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SED.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SED.c' object='$(top_builddir)/instr/instruction_verify-SED.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SED.obj `if test -f '$(top_builddir)/instr/SED.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SED.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SED.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-SEI.o: $(top_builddir)/instr/SEI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SEI.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Tpo -c -o $(top_builddir)/instr/instruction_verify-SEI.o `test -f '$(top_builddir)/instr/SEI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SEI.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SEI.c' object='$(top_builddir)/instr/instruction_verify-SEI.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SEI.o `test -f '$(top_builddir)/instr/SEI.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SEI.c
+
+$(top_builddir)/instr/instruction_verify-SEI.obj: $(top_builddir)/instr/SEI.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SEI.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Tpo -c -o $(top_builddir)/instr/instruction_verify-SEI.obj `if test -f '$(top_builddir)/instr/SEI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SEI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SEI.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SEI.c' object='$(top_builddir)/instr/instruction_verify-SEI.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SEI.obj `if test -f '$(top_builddir)/instr/SEI.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SEI.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SEI.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-SHY.o: $(top_builddir)/instr/SHY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SHY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Tpo -c -o $(top_builddir)/instr/instruction_verify-SHY.o `test -f '$(top_builddir)/instr/SHY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SHY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SHY.c' object='$(top_builddir)/instr/instruction_verify-SHY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SHY.o `test -f '$(top_builddir)/instr/SHY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/SHY.c
+
+$(top_builddir)/instr/instruction_verify-SHY.obj: $(top_builddir)/instr/SHY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-SHY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Tpo -c -o $(top_builddir)/instr/instruction_verify-SHY.obj `if test -f '$(top_builddir)/instr/SHY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SHY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SHY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/SHY.c' object='$(top_builddir)/instr/instruction_verify-SHY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-SHY.obj `if test -f '$(top_builddir)/instr/SHY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/SHY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/SHY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-STA.o: $(top_builddir)/instr/STA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-STA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Tpo -c -o $(top_builddir)/instr/instruction_verify-STA.o `test -f '$(top_builddir)/instr/STA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/STA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/STA.c' object='$(top_builddir)/instr/instruction_verify-STA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-STA.o `test -f '$(top_builddir)/instr/STA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/STA.c
+
+$(top_builddir)/instr/instruction_verify-STA.obj: $(top_builddir)/instr/STA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-STA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Tpo -c -o $(top_builddir)/instr/instruction_verify-STA.obj `if test -f '$(top_builddir)/instr/STA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/STA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/STA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/STA.c' object='$(top_builddir)/instr/instruction_verify-STA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-STA.obj `if test -f '$(top_builddir)/instr/STA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/STA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/STA.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-STX.o: $(top_builddir)/instr/STX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-STX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Tpo -c -o $(top_builddir)/instr/instruction_verify-STX.o `test -f '$(top_builddir)/instr/STX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/STX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/STX.c' object='$(top_builddir)/instr/instruction_verify-STX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-STX.o `test -f '$(top_builddir)/instr/STX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/STX.c
+
+$(top_builddir)/instr/instruction_verify-STX.obj: $(top_builddir)/instr/STX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-STX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Tpo -c -o $(top_builddir)/instr/instruction_verify-STX.obj `if test -f '$(top_builddir)/instr/STX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/STX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/STX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/STX.c' object='$(top_builddir)/instr/instruction_verify-STX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-STX.obj `if test -f '$(top_builddir)/instr/STX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/STX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/STX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-STY.o: $(top_builddir)/instr/STY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-STY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Tpo -c -o $(top_builddir)/instr/instruction_verify-STY.o `test -f '$(top_builddir)/instr/STY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/STY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/STY.c' object='$(top_builddir)/instr/instruction_verify-STY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-STY.o `test -f '$(top_builddir)/instr/STY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/STY.c
+
+$(top_builddir)/instr/instruction_verify-STY.obj: $(top_builddir)/instr/STY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-STY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Tpo -c -o $(top_builddir)/instr/instruction_verify-STY.obj `if test -f '$(top_builddir)/instr/STY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/STY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/STY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/STY.c' object='$(top_builddir)/instr/instruction_verify-STY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-STY.obj `if test -f '$(top_builddir)/instr/STY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/STY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/STY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-TAX.o: $(top_builddir)/instr/TAX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TAX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Tpo -c -o $(top_builddir)/instr/instruction_verify-TAX.o `test -f '$(top_builddir)/instr/TAX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TAX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TAX.c' object='$(top_builddir)/instr/instruction_verify-TAX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TAX.o `test -f '$(top_builddir)/instr/TAX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TAX.c
+
+$(top_builddir)/instr/instruction_verify-TAX.obj: $(top_builddir)/instr/TAX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TAX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Tpo -c -o $(top_builddir)/instr/instruction_verify-TAX.obj `if test -f '$(top_builddir)/instr/TAX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TAX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TAX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TAX.c' object='$(top_builddir)/instr/instruction_verify-TAX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TAX.obj `if test -f '$(top_builddir)/instr/TAX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TAX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TAX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-TAY.o: $(top_builddir)/instr/TAY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TAY.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Tpo -c -o $(top_builddir)/instr/instruction_verify-TAY.o `test -f '$(top_builddir)/instr/TAY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TAY.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TAY.c' object='$(top_builddir)/instr/instruction_verify-TAY.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TAY.o `test -f '$(top_builddir)/instr/TAY.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TAY.c
+
+$(top_builddir)/instr/instruction_verify-TAY.obj: $(top_builddir)/instr/TAY.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TAY.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Tpo -c -o $(top_builddir)/instr/instruction_verify-TAY.obj `if test -f '$(top_builddir)/instr/TAY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TAY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TAY.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TAY.c' object='$(top_builddir)/instr/instruction_verify-TAY.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TAY.obj `if test -f '$(top_builddir)/instr/TAY.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TAY.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TAY.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-TSX.o: $(top_builddir)/instr/TSX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TSX.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Tpo -c -o $(top_builddir)/instr/instruction_verify-TSX.o `test -f '$(top_builddir)/instr/TSX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TSX.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TSX.c' object='$(top_builddir)/instr/instruction_verify-TSX.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TSX.o `test -f '$(top_builddir)/instr/TSX.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TSX.c
+
+$(top_builddir)/instr/instruction_verify-TSX.obj: $(top_builddir)/instr/TSX.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TSX.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Tpo -c -o $(top_builddir)/instr/instruction_verify-TSX.obj `if test -f '$(top_builddir)/instr/TSX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TSX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TSX.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TSX.c' object='$(top_builddir)/instr/instruction_verify-TSX.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TSX.obj `if test -f '$(top_builddir)/instr/TSX.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TSX.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TSX.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-TXA.o: $(top_builddir)/instr/TXA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TXA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Tpo -c -o $(top_builddir)/instr/instruction_verify-TXA.o `test -f '$(top_builddir)/instr/TXA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TXA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TXA.c' object='$(top_builddir)/instr/instruction_verify-TXA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TXA.o `test -f '$(top_builddir)/instr/TXA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TXA.c
+
+$(top_builddir)/instr/instruction_verify-TXA.obj: $(top_builddir)/instr/TXA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TXA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Tpo -c -o $(top_builddir)/instr/instruction_verify-TXA.obj `if test -f '$(top_builddir)/instr/TXA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TXA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TXA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TXA.c' object='$(top_builddir)/instr/instruction_verify-TXA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TXA.obj `if test -f '$(top_builddir)/instr/TXA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TXA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TXA.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-TXS.o: $(top_builddir)/instr/TXS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TXS.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Tpo -c -o $(top_builddir)/instr/instruction_verify-TXS.o `test -f '$(top_builddir)/instr/TXS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TXS.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TXS.c' object='$(top_builddir)/instr/instruction_verify-TXS.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TXS.o `test -f '$(top_builddir)/instr/TXS.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TXS.c
+
+$(top_builddir)/instr/instruction_verify-TXS.obj: $(top_builddir)/instr/TXS.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TXS.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Tpo -c -o $(top_builddir)/instr/instruction_verify-TXS.obj `if test -f '$(top_builddir)/instr/TXS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TXS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TXS.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TXS.c' object='$(top_builddir)/instr/instruction_verify-TXS.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TXS.obj `if test -f '$(top_builddir)/instr/TXS.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TXS.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TXS.c'; fi`
+
+$(top_builddir)/instr/instruction_verify-TYA.o: $(top_builddir)/instr/TYA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TYA.o -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Tpo -c -o $(top_builddir)/instr/instruction_verify-TYA.o `test -f '$(top_builddir)/instr/TYA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TYA.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TYA.c' object='$(top_builddir)/instr/instruction_verify-TYA.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TYA.o `test -f '$(top_builddir)/instr/TYA.c' || echo '$(srcdir)/'`$(top_builddir)/instr/TYA.c
+
+$(top_builddir)/instr/instruction_verify-TYA.obj: $(top_builddir)/instr/TYA.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -MT $(top_builddir)/instr/instruction_verify-TYA.obj -MD -MP -MF $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Tpo -c -o $(top_builddir)/instr/instruction_verify-TYA.obj `if test -f '$(top_builddir)/instr/TYA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TYA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TYA.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Tpo $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$(top_builddir)/instr/TYA.c' object='$(top_builddir)/instr/instruction_verify-TYA.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(instruction_verify_CFLAGS) $(CFLAGS) -c -o $(top_builddir)/instr/instruction_verify-TYA.obj `if test -f '$(top_builddir)/instr/TYA.c'; then $(CYGPATH_W) '$(top_builddir)/instr/TYA.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/instr/TYA.c'; fi`
+
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
 tags: tags-am
@@ -2208,6 +3562,64 @@ distclean: distclean-am
 	-rm -f $(top_builddir)/instr/$(DEPDIR)/c2_4p-TXA.Po
 	-rm -f $(top_builddir)/instr/$(DEPDIR)/c2_4p-TXS.Po
 	-rm -f $(top_builddir)/instr/$(DEPDIR)/c2_4p-TYA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-bus.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-debug_output.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-hw_c2-4p.Po
@@ -2215,6 +3627,9 @@ distclean: distclean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-keydecode.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-shmem.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -2320,6 +3735,64 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(top_builddir)/instr/$(DEPDIR)/c2_4p-TXA.Po
 	-rm -f $(top_builddir)/instr/$(DEPDIR)/c2_4p-TXS.Po
 	-rm -f $(top_builddir)/instr/$(DEPDIR)/c2_4p-TYA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ADC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-AND.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ASL.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BCS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BEQ.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BIT.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BMI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BNE.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BPL.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BRK.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-BVS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLD.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CLV.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CMP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-CPY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DCP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-DEY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-EOR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-INY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JMP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-JSR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LDY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-LSR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-NOP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ORA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PHP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-PLP.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROL.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-ROR.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-RTS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SBC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEC.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SED.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SEI.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-SHY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-STY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TAY.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TSX.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXA.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TXS.Po
+	-rm -f $(top_builddir)/instr/$(DEPDIR)/instruction_verify-TYA.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-bus.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-debug_output.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-hw_c2-4p.Po
@@ -2327,6 +3800,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-keydecode.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-main.Po
 	-rm -f $(top_builddir)/src/$(DEPDIR)/c2_4p-shmem.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/instruction_verify-bus_verify.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/instruction_verify-instruction.Po
+	-rm -f $(top_builddir)/src/$(DEPDIR)/instruction_verify-opcode_verify.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
