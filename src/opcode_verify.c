@@ -38,20 +38,20 @@ static char* load_json_file(const char* filename) {
         fprintf(stderr, "Failed to open %s\n", filename);
         return NULL;
     }
-    
+
     fseek(f, 0, SEEK_END);
     long fsize = ftell(f);
     fseek(f, 0, SEEK_SET);
-    
+
     char *content = malloc(fsize + 1);
     if (!content) {
         fclose(f);
         return NULL;
     }
-    
+
     fread(content, fsize, 1, f);
     fclose(f);
-    
+
     content[fsize] = 0;
     return content;
 }
@@ -83,38 +83,38 @@ static int get_sr_bit(status_reg_t *sr, int bit_pos) {
 }
 
 /* Check if status flags match expected values */
-static int check_status_flags(const char *opcode_hex, status_reg_t *sr, 
+static int check_status_flags(const char *opcode_hex, status_reg_t *sr,
                              cJSON *execution) {
     if (!execution || execution->type != cJSON_Object) {
         return 1;  /* No flags to check */
     }
-    
+
     cJSON *flags_array = cJSON_GetObjectItem(execution, "flags");
     if (!flags_array || flags_array->type != cJSON_Array) {
         return 1;  /* No flags array */
     }
-    
+
     int all_flags_set = 1;
     cJSON *flag_item = NULL;
-    
+
     cJSON_ArrayForEach(flag_item, flags_array) {
         if (flag_item->type != cJSON_String) continue;
-        
+
         const char *flag_name = flag_item->valuestring;
         int bit_pos = flag_name_to_bit(flag_name);
-        
+
         if (bit_pos < 0) {
             fprintf(stderr, "Unknown flag name: %s for opcode %s\n", flag_name, opcode_hex);
             return 0;
         }
-        
+
         int bit_value = get_sr_bit(sr, bit_pos);
         if (bit_value != 1) {
             fprintf(stderr, "  Flag %s not set (bit %d)\n", flag_name, bit_pos);
             all_flags_set = 0;
         }
     }
-    
+
     return all_flags_set;
 }
 
@@ -124,49 +124,49 @@ static void test_opcode(cJSON *opcode_obj) {
     cJSON *mnemonic_item = cJSON_GetObjectItem(opcode_obj, "mnemonic");
     cJSON *execution_item = cJSON_GetObjectItem(opcode_obj, "execution");
     cJSON *illegal_item = cJSON_GetObjectItem(opcode_obj, "illegal");
-    
+
     if (!opcode_item || opcode_item->type != cJSON_String) return;
     if (!mnemonic_item || mnemonic_item->type != cJSON_String) return;
-    
+
     const char *opcode_hex = opcode_item->valuestring;
     const char *mnemonic = mnemonic_item->valuestring;
-    
+
     /* Parse hex opcode */
     unsigned long opcode_val = strtoul(opcode_hex, NULL, 16);
     if (opcode_val > 255) {
         fprintf(stderr, "Invalid opcode value: %s\n", opcode_hex);
         return;
     }
-    
+
     uint8_t opcode_byte = (uint8_t)opcode_val;
-    
+
     test_stats.total++;
-    
+
     /* Check if opcode has execution definition */
     if (!execution_item) {
-        printf("[%s] %s (0x%02X) - PASS (needs implementation)\n", 
+        printf("[%s] %s (0x%02X) - PASS (needs implementation)\n",
                opcode_hex, mnemonic, opcode_byte);
         test_stats.not_implemented++;
         test_stats.passed++;
         return;
     }
-    
+
     /* Get instruction function pointer */
     if (inst_decode[opcode_byte].hex != opcode_byte) {
-        printf("[%s] %s (0x%02X) - FAIL (not in inst_decode table)\n", 
+        printf("[%s] %s (0x%02X) - FAIL (not in inst_decode table)\n",
                opcode_hex, mnemonic, opcode_byte);
         test_stats.failed++;
         return;
     }
-    
+
     opcode_fn instruction_func = inst_decode[opcode_byte].opcf;
     if (!instruction_func) {
-        printf("[%s] %s (0x%02X) - FAIL (no instruction function)\n", 
+        printf("[%s] %s (0x%02X) - FAIL (no instruction function)\n",
                opcode_hex, mnemonic, opcode_byte);
         test_stats.failed++;
         return;
     }
-    
+
     /* Initialize registers */
     all_regs_t reg_state = {
         .PC = 0x0000,
@@ -178,24 +178,24 @@ static void test_opcode(cJSON *opcode_obj) {
         .cyc = 0,
         .brk = 0
     };
-    
+
     /* Reset memory access tracking */
     bus_verify_reset_tracking();
-    
+
     /* Execute instruction with dummy operands */
     uint8_t low_byte = 0x00;
     uint8_t high_byte = 0x00;
     uint64_t cycles = 0;
-    
+
     instruction_func(&reg_state, low_byte, high_byte, &cycles);
-    
+
     /* Check status flags if execution field exists */
     if (check_status_flags(opcode_hex, &reg_state.SR, execution_item)) {
-        printf("[%s] %s (0x%02X) - PASS\n", 
+        printf("[%s] %s (0x%02X) - PASS\n",
                opcode_hex, mnemonic, opcode_byte);
         test_stats.passed++;
     } else {
-        printf("[%s] %s (0x%02X) - FAIL\n", 
+        printf("[%s] %s (0x%02X) - FAIL\n",
                opcode_hex, mnemonic, opcode_byte);
         test_stats.failed++;
     }
@@ -204,28 +204,28 @@ static void test_opcode(cJSON *opcode_obj) {
 /* Main test program */
 int main(int argc, char *argv[]) {
     printf("=== 6502 Opcode Verification Test ===\n\n");
-    
+
     /* Initialize bus verification */
     bus_verify_init();
-    
+
     /* Build decode table */
     build_decode();
-    
+
     /* Load and parse JSON */
-    char *json_text = load_json_file("./opcodes_verify/opcodes.json");
+    char *json_text = load_json_file("../opcodes_verify/opcodes.json");
     if (!json_text) {
         fprintf(stderr, "Failed to load JSON file\n");
         return 1;
     }
-    
+
     cJSON *json = cJSON_Parse(json_text);
     free(json_text);
-    
+
     if (!json) {
         fprintf(stderr, "Failed to parse JSON\n");
         return 1;
     }
-    
+
     /* Get OPCODES array */
     cJSON *opcodes_array = cJSON_GetObjectItem(json, "OPCODES");
     if (!opcodes_array || opcodes_array->type != cJSON_Array) {
@@ -233,28 +233,28 @@ int main(int argc, char *argv[]) {
         cJSON_Delete(json);
         return 1;
     }
-    
+
     /* Test each opcode */
     cJSON *opcode_obj = NULL;
     cJSON_ArrayForEach(opcode_obj, opcodes_array) {
         test_opcode(opcode_obj);
     }
-    
+
     /* Print summary */
     printf("\n=== Test Summary ===\n");
     printf("Total opcodes tested: %d\n", test_stats.total);
     printf("Passed: %d\n", test_stats.passed);
     printf("Failed: %d\n", test_stats.failed);
     printf("Not yet implemented: %d\n", test_stats.not_implemented);
-    
+
     if (test_stats.failed == 0) {
         printf("\nAll tests PASSED!\n");
     } else {
         printf("\nSome tests FAILED!\n");
     }
-    
+
     /* Cleanup */
     cJSON_Delete(json);
-    
+
     return (test_stats.failed > 0) ? 1 : 0;
 }
