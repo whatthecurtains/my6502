@@ -11,6 +11,8 @@ all_regs_t* BRK_##mode(all_regs_t* reg, uint8_t low, uint8_t high, uint64_t* cyc
     PUSH(pc_low);                                                                       \
     PUSH(pc_high);                                                                      \
     PUSH(reg->SR_all);                                                                  \
+    reg->SR.I = 1;                                                                      \
+    reg->PC = memrd(0xFFFE) | (memrd(0xFFFF)<<8);                                       \
     *cyc += (cc);                                                                       \
     return reg;                                                                         \
 }

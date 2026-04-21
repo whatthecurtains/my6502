@@ -9,6 +9,7 @@
 #include <string.h>
 
 #define TEST_MEMORY_SIZE 0x10000
+#define MAX_WRITE_HISTORY 16
 
 static uint8_t test_memory[TEST_MEMORY_SIZE];
 static struct {
@@ -16,6 +17,13 @@ static struct {
     uint8_t data;
     int accessed;
 } last_read, last_write;
+
+/* Write history for tracking multiple writes (e.g., stack pushes in BRK) */
+static struct {
+    uint16_t addr;
+    uint8_t data;
+} write_history[MAX_WRITE_HISTORY];
+static int write_history_count = 0;
 
 /* Initialize test memory for verification test */
 void bus_verify_init(void) {
@@ -28,6 +36,7 @@ void bus_verify_init(void) {
 void bus_verify_reset_tracking(void) {
     last_read.accessed = 0;
     last_write.accessed = 0;
+    write_history_count = 0;
 }
 
 /* Mock memory read for testing */
@@ -45,6 +54,12 @@ void memwr(uint16_t addr, uint8_t data) {
     last_write.addr = addr;
     last_write.data = data;
     last_write.accessed = 1;
+    /* Track write in history for multi-write instructions like BRK */
+    if (write_history_count < MAX_WRITE_HISTORY) {
+        write_history[write_history_count].addr = addr;
+        write_history[write_history_count].data = data;
+        write_history_count++;
+    }
 }
 
 /* Get last memory read information */
@@ -69,4 +84,17 @@ void bus_verify_set_memory(uint16_t addr, uint8_t data) {
 /* Get test memory value */
 uint8_t bus_verify_get_memory(uint16_t addr) {
     return test_memory[addr];
+}
+
+/* Get write history count */
+int bus_verify_get_write_history_count(void) {
+    return write_history_count;
+}
+
+/* Get write history entry */
+void bus_verify_get_write_history(int index, uint16_t *addr, uint8_t *data) {
+    if (index >= 0 && index < write_history_count) {
+        if (addr) *addr = write_history[index].addr;
+        if (data) *data = write_history[index].data;
+    }
 }
