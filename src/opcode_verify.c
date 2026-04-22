@@ -257,6 +257,15 @@ static void test_opcode(cJSON *opcode_obj) {
 
     uint64_t cycles = 0; /* dummy cycles */
 
+    /* Store instruction bytes in memory at PC */
+    bus_verify_set_memory(reg_state.PC, opcode_byte);
+    if (bytes_field >= 2) {
+        bus_verify_set_memory(reg_state.PC + 1, low_byte);
+    }
+    if (bytes_field == 3) {
+        bus_verify_set_memory(reg_state.PC + 2, high_byte);
+    }
+
     /* Parse inst_action to setup memory expectations and expected outcomes */
     cJSON *inst_action_item = cJSON_GetObjectItem(opcode_obj, "inst_action");
     char *inst_action = NULL;
@@ -316,7 +325,7 @@ static void test_opcode(cJSON *opcode_obj) {
 
             if (strstr(tok, "A <- A | M(" ) == tok || strstr(tok, "A <- A & M(") == tok || strstr(tok, "A <- A ^ M(") == tok) {
                 /* logic op with memory */
-                char op = tok[8]; /* '|' or '&' or '^' */
+                char op = tok[7]; /* '|' or '&' or '^' */
                 /* find address substring start */
                 char *addr_start = strchr(tok, 'M');
                 uint16_t addr = resolve_effective_address(addr_start, &initial_regs, low_byte, high_byte);
