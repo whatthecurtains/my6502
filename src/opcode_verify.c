@@ -14,10 +14,14 @@
 #include <stdint.h>
 #include <cjson/cJSON.h>
 #include <time.h>
+#includ <stdbool.h>
 
 #include "regs.h"
 #include "instruction.h"
 #include "bus.h"
+
+typedef enum { NONE, ILLEGAL_ACTION } FATAL_ERRORS;
+
 
 /* Forward declarations for bus_verify functions */
 void bus_verify_init(void);
@@ -36,6 +40,12 @@ static struct {
     int failed;
     int not_implemented;
 } test_stats = {0, 0, 0, 0};
+
+
+void fatal(FATAL_ERRORS err, const char* description) {
+    printf("%03.3d - %s\n",err, description);
+    exit(-1);
+}
 
 /* Load JSON file into string */
 static char* load_json_file(const char* filename) {
@@ -172,6 +182,121 @@ static uint16_t resolve_effective_address(const char *expr, all_regs_t *sreg, ui
     /* Default fallback */
     return 0;
 }
+
+static bool verify_instr_action(const char* action, all_regs_t initial_regs, all_regs_t final_regs) {
+    bool pass = true;
+    char* start=NULL;
+    char* tok = strtok(action, ';');
+    char src[256];
+    char dst[256];
+    while(tok) {
+        // begin the scanf section to determine the dest <- src of the action primative"
+        // destinations:
+        // A, X, Y, M(), orig, oldC, val
+        //int c=sscanf("%s <- %s",tok,dst,src);
+        if      ( sscanf(tok, "A <- %255s", src)==1) {
+            // accumulator destinations
+        }
+        else if ( sscanf(tok, "X <- %255s", src)==1 ) {
+            // X register destinations
+        }
+        else if ( sscanf(tok, "Y <- %255s", src)==1) {
+            // Y register destinations
+        }
+        else if ( sscanf(tok, "SP <- %255s", src)==1 ||
+                  sscanf(tok, "SP <= %255s", src)==1 ||
+                  sscanf(tok, "SP = %255s", src)==1) {
+            // stack pointer destinations
+        }
+        else if ( sscanf(tok, "M(SP) <- %255s", src)==1 ) {
+            // M(SP) destination
+        }
+        else if ( sscanf(tok, "M(SP-1) <- %255s", src)==1 ) {
+            // M(SP-1) destination
+        }
+        else if ( sscanf(tok, "M(SP-2) <- %255s", src)==1 ) {
+            // M(SP-2) destination
+        }
+        else if ( sscanf(tok, "SR.I <- %255s", src)==1 ||
+                  sscanf(tok, "SR.I <= %255s", src)==1 ) {
+            // SR.I destination
+        }
+        else if ( sscanf(tok, "PC <- %255s", src)==1 ) {
+            // PC destination
+        }
+        else if ( sscanf(tok, "SR.Z <- %255s", src)==1 ) {
+            // SR.Z destination
+        }
+        else if ( sscanf(tok, "orig = %255s", src)==1 ) {
+            // orig destination
+        }
+        else if ( sscanf(tok, "SR.C <- %255s", src)==1 ||
+                  sscanf(tok, "SR.C <= %255s", src)==1 ) {
+            // SR.C destination
+        }
+        else if ( sscanf(tok, "res = %255s", src)==1 ) {
+            // res destination
+        }
+        else if ( sscanf(tok, "M(M(M(PC+1))) <- %255s", src)==1 ) {
+            // M(M(M(PC+1))) destination
+        }
+        else if ( sscanf(tok, "SR.N <- %255s", src)==1 ) {
+            // SR.N destination
+        }
+        else if ( sscanf(tok, "M(M(M(PC+2)<<8|M(PC+1))) <- %255s", src)==1 ) {
+            // M(M(M(PC+2)<<8|M(PC+1))) destination
+        }
+        else if ( sscanf(tok, "M(M((M(PC+1)+X)&0xFF)) <- %255s", src)==1 ) {
+            // M(M((M(PC+1)+X)&0xFF)) destination
+        }
+        else if ( sscanf(tok, "M(M((M(PC+2)<<8|M(PC+1))+X)) <- %255s", src)==1 ) {
+            // M(M((M(PC+2)<<8|M(PC+1))+X)) destination
+        }
+        else if ( sscanf(tok, "SR.V <- %255s", src)==1 ||
+                  sscanf(tok, "SR.V <= %255s", src)==1 ) {
+            // SR.V destination
+        }
+        else if ( sscanf(tok, "oldC = %255s", src)==1 ) {
+            // oldC destination
+        }
+        else if ( sscanf(tok, "SR <- %255s", src)==1 ) {
+            // SR destination
+        }
+        else if ( sscanf(tok, "M(M(PC+1)) <- %255s", src)==1 ) {
+            // M(M(PC+1)) destination
+        }
+        else if ( sscanf(tok, "M(M(PC+2)<<8|M(PC+1)) <- %255s", src)==1 ) {
+            // M(M(PC+2)<<8|M(PC+1)) destination
+        }
+        else if ( sscanf(tok, "M(M(M(PC+1)) + Y) <- %255s", src)==1 ) {
+            // M(M(M(PC+1)) + Y) destination
+        }
+        else if ( sscanf(tok, "M((M(PC+1)+X)&0xFF) <- %255s", src)==1 ) {
+            // M((M(PC+1)+X)&0xFF) destination
+        }
+        else if ( sscanf(tok, "M((M(PC+1)+Y)&0xFF) <- %255s", src)==1 ) {
+            // M((M(PC+1)+Y)&0xFF) destination
+        }
+        else if ( sscanf(tok, "M((M(PC+2)<<8|M(PC+1))+Y) <- %255s", src)==1 ) {
+            // M((M(PC+2)<<8|M(PC+1))+Y) destination
+        }
+        else if ( sscanf(tok, "M((M(PC+2)<<8|M(PC+1))+X) <- %255s", src)==1 ) {
+            // M((M(PC+2)<<8|M(PC+1))+X) destination
+        }
+        else if ( sscanf(tok, "val = %255s", src)==1 ) {
+            // val destination
+        }
+        else if ( sscanf(tok, "SR.D <- %255s", src)==1 ||
+                  sscanf(tok, "SR.D <= %255s", src)==1 ) {
+            // SR.D destination
+        }
+        else {
+            fatal(ILLEGAL_ACTION,"Action did not decode to destination <- source");
+        }
+    }
+
+}
+
 
 /* Run test for a single opcode */
 static void test_opcode(cJSON *opcode_obj) {
@@ -316,13 +441,15 @@ static void test_opcode(cJSON *opcode_obj) {
     if (inst_action) {
         /* tokenize by ';' and evaluate expected results */
         char *copy = strdup(inst_action);
+        pass &= verify_instruction_action(copy);
+        free(copy);
+#if 0
         char *tok = strtok(copy, ";");
         while (tok) {
             /* trim whitespace */
             while (*tok == ' ' || *tok == '\t') tok++;
             char *end = tok + strlen(tok) - 1;
             while (end > tok && (*end == ' ' || *end == '\t' || *end == '\n')) { *end = '\0'; end--; }
-
             if (strstr(tok, "A <- A | M(" ) == tok || strstr(tok, "A <- A & M(") == tok || strstr(tok, "A <- A ^ M(") == tok) {
                 /* logic op with memory */
                 char op = tok[7]; /* '|' or '&' or '^' */
@@ -421,15 +548,15 @@ static void test_opcode(cJSON *opcode_obj) {
                 if (write_count >= 3) {
                     uint16_t sp_addr_lo, sp_addr_hi, sp_addr_sr;
                     uint8_t sp_data_lo, sp_data_hi, sp_data_sr;
-                    
+
                     /* Get the three writes (should be to SP, SP-1, SP-2) */
                     bus_verify_get_write_history(0, &sp_addr_lo, &sp_data_lo);
                     bus_verify_get_write_history(1, &sp_addr_hi, &sp_data_hi);
                     bus_verify_get_write_history(2, &sp_addr_sr, &sp_data_sr);
-                    
+
                     uint8_t expected_lo = (initial_regs.PC + 2) & 0xFF;
                     uint8_t expected_hi = ((initial_regs.PC + 2) >> 8) & 0xFF;
-                    
+
                     /* Verify PC+2 low byte write to 0x100+SP */
                     uint16_t expected_sp_addr_lo = 0x100 + initial_regs.SP;
                     if (sp_addr_lo != expected_sp_addr_lo || sp_data_lo != expected_lo) {
@@ -442,7 +569,7 @@ static void test_opcode(cJSON *opcode_obj) {
                     pass = 0;
                 }
             }
-            
+
             /* BRK PC+2 high byte verification */
             if (strstr(tok, "M(SP-1) <- (PC+2)>>8") != NULL) {
                 int write_count = bus_verify_get_write_history_count();
@@ -450,10 +577,10 @@ static void test_opcode(cJSON *opcode_obj) {
                     uint16_t sp_addr_hi;
                     uint8_t sp_data_hi;
                     bus_verify_get_write_history(1, &sp_addr_hi, &sp_data_hi);
-                    
+
                     uint8_t expected_hi = ((initial_regs.PC + 2) >> 8) & 0xFF;
                     uint16_t expected_sp_addr_hi = 0x100 + (initial_regs.SP - 1);
-                    
+
                     if (sp_addr_hi != expected_sp_addr_hi || sp_data_hi != expected_hi) {
                         printf("  [%s] %s - FAIL: BRK PC+2 high write - expected addr 0x%04X data 0x%02X, got addr 0x%04X data 0x%02X\n",
                                opcode_hex, mnemonic, expected_sp_addr_hi, expected_hi, sp_addr_hi, sp_data_hi);
@@ -461,7 +588,7 @@ static void test_opcode(cJSON *opcode_obj) {
                     }
                 }
             }
-            
+
             /* BRK SR verification */
             if (strstr(tok, "M(SP-2) <- SR") != NULL) {
                 int write_count = bus_verify_get_write_history_count();
@@ -469,7 +596,7 @@ static void test_opcode(cJSON *opcode_obj) {
                     uint16_t sp_addr_sr;
                     uint8_t sp_data_sr;
                     bus_verify_get_write_history(2, &sp_addr_sr, &sp_data_sr);
-                    
+
                     uint16_t expected_sp_addr_sr = 0x100 + (initial_regs.SP - 2);
                     if (sp_addr_sr != expected_sp_addr_sr || sp_data_sr != initial_regs.SR_all) {
                         printf("  [%s] %s - FAIL: BRK SR write - expected addr 0x%04X data 0x%02X, got addr 0x%04X data 0x%02X\n",
@@ -478,7 +605,7 @@ static void test_opcode(cJSON *opcode_obj) {
                     }
                 }
             }
-            
+
             /* Check SR.I flag set for BRK */
             if (strstr(tok, "SR.I <- 1") != NULL) {
                 if (reg_state.SR.I != 1) {
@@ -486,7 +613,7 @@ static void test_opcode(cJSON *opcode_obj) {
                     pass = 0;
                 }
             }
-            
+
             /* Check PC load from interrupt vector for BRK */
             if (strstr(tok, "PC <- M(0xFFFE)|M(0xFFFF)<<8") != NULL) {
                 uint8_t vec_lo = bus_verify_get_memory(0xFFFE);
@@ -501,6 +628,7 @@ static void test_opcode(cJSON *opcode_obj) {
             tok = strtok(NULL, ";");
         }
         free(copy);
+#endif
     }
 
     if (pass) {
@@ -518,7 +646,17 @@ int main(int argc, char *argv[]) {
     printf("=== 6502 Opcode Verification Test ===\n\n");
 
     /* Seed RNG for randomized register/state generation */
-    srand((unsigned)time(NULL));
+    unsigned int seed;
+    if (argc > 1) {
+        /* User provided a seed via command line */
+        seed = (unsigned int)strtoul(argv[1], NULL, 10);
+        printf("Using user-provided random seed: %u\n\n", seed);
+    } else {
+        /* Use default time-based seed */
+        seed = (unsigned int)time(NULL);
+        printf("Using time-based random seed: %u\n\n", seed);
+    }
+    srand(seed);
 
     /* Initialize bus verification */
     bus_verify_init();
